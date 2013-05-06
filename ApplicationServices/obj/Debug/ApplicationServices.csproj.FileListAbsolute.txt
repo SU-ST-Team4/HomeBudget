@@ -1,0 +1,7 @@
+C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\ApplicationServices\bin\Debug\ApplicationServices.dll
+C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\ApplicationServices\bin\Debug\ApplicationServices.pdb
+C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.csprojResolveAssemblyReference.cache
+C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.dll
+C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.pdb
+C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\ApplicationServices\bin\Debug\Core.dll
+C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\ApplicationServices\bin\Debug\Core.pdb
