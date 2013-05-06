@@ -56,7 +56,7 @@ namespace ApplicationServices.Services.Authentication
 
         #region Fields
 
-        private readonly IGenericRepository<UserExample> _userRepository;
+        private readonly IGenericRepository<User> _userRepository;
 
         #endregion Fields
 
@@ -66,7 +66,7 @@ namespace ApplicationServices.Services.Authentication
         /// Default Constructor
         /// </summary>
         /// <param name="userRepository"></param>
-        public UserService(IGenericRepository<UserExample> userRepository)
+        public UserService(IGenericRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -81,9 +81,9 @@ namespace ApplicationServices.Services.Authentication
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public UserExample AutenticateUser(string userName, string password)
+        public User AutenticateUser(string userName, string password)
         {
-            UserExample user = _userRepository.Get(u => u.UserName == userName)
+            User user = _userRepository.Get(u => u.UserName == userName)
                                        .FirstOrDefault();
 
             if (user != null && EncryptPassword(password) == user.EncryptedPassword)
@@ -98,7 +98,7 @@ namespace ApplicationServices.Services.Authentication
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public UserExample GetUserById(int id)
+        public User GetUserById(int id)
         {
             return _userRepository.GetByID(id);
         }
@@ -110,7 +110,7 @@ namespace ApplicationServices.Services.Authentication
         /// <returns></returns>
         public bool VerifyUserPassword(int userId, string passwordToCheck)
         {
-            UserExample user = _userRepository.GetByID(userId);
+            User user = _userRepository.GetByID(userId);
 
             if (user != null)
             {
@@ -130,7 +130,7 @@ namespace ApplicationServices.Services.Authentication
         {
             if (VerifyUserPassword(userId, oldPassword))
             {
-                UserExample user = _userRepository.GetByID(userId);
+                User user = _userRepository.GetByID(userId);
 
                 if (user != null)
                 {
@@ -148,9 +148,9 @@ namespace ApplicationServices.Services.Authentication
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public int RegisterUser(UserExample user)
+        public int RegisterUser(User user)
         {
-            UserExample existingUser = _userRepository.Get(u => u.UserName == user.UserName)
+            User existingUser = _userRepository.Get(u => u.UserName == user.UserName)
                                                .FirstOrDefault();
 
             if (existingUser == null)

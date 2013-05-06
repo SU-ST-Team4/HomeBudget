@@ -41,14 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Authentication\ExternalLogin.cs" />
-    <Compile Include="Models\Authentication\LoginModel.cs" />
-    <Compile Include="Models\Authentication\PublicLoginPassword.cs" />
-    <Compile Include="Models\Authentication\RegisterExternalLoginModel.cs" />
     <Compile Include="Models\Authentication\User.cs" />
     <Compile Include="Models\Authentication\UserProfile.cs" />
     <Compile Include="Models\IEntity.cs" />
-    <Compile Include="Models\Authentication\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\IGenericRepository.cs" />
     <Compile Include="Services\Authentication\IUserService.cs" />

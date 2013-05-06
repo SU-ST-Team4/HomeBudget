@@ -8,7 +8,6 @@ using System.Web.Optimization;
 using System.Threading;
 using System.Web.Routing;
 using System.Web.Security;
-using HomeBudget.Infrastructure.Principal;
 using Core.Services.Authentication;
 using Core.Models.Authentication;
 using ApplicationServices.Services.Authentication;

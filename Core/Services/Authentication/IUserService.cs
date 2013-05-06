@@ -17,13 +17,13 @@ namespace Core.Services.Authentication
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        UserExample AutenticateUser(string userName, string password);
+        User AutenticateUser(string userName, string password);
         /// <summary>
         /// Gets user by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        UserExample GetUserById(int id);
+        User GetUserById(int id);
         /// <summary>
         /// Verify if user's entered password is the same as the existing one.
         /// </summary>
@@ -44,6 +44,6 @@ namespace Core.Services.Authentication
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        int RegisterUser(UserExample user);
+        int RegisterUser(User user);
     }
 }

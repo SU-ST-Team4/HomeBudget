@@ -8,3 +8,13 @@ C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\Infrastructure
 C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\Infrastructure\bin\Debug\Infrastructure.dll.config
 C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\Infrastructure\bin\Debug\EntityFramework.dll
 C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\Infrastructure\bin\Debug\EntityFramework.xml
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Infrastructure.dll.config
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Infrastructure.dll
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Infrastructure.pdb
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Core.dll
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\EntityFramework.dll
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Core.pdb
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\EntityFramework.xml
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.dll
+C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.pdb

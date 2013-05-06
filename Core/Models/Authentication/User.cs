@@ -7,8 +7,7 @@ namespace Core.Models.Authentication
     /// <summary>
     /// Represents an user in the system.
     /// </summary>
-    [Serializable]
-    public class UserExample : IEntity, IIdentity
+    public class User : IEntity
     {
         public int Id { get; set; }
         [Required(ErrorMessage="UserName is required.")]
@@ -25,24 +24,5 @@ namespace Core.Models.Authentication
         [Required(ErrorMessage = "Last Name is required.")]
         [StringLength(100)]
         public string LastName { get; set; }
-
-        #region IIdentity Implementation
-
-        bool _isAuthenticated;
-        public string AuthenticationType
-        {
-            get { return string.Empty; }
-        }
-        public bool IsAuthenticated
-        {
-            get { return _isAuthenticated; }
-            set { _isAuthenticated = value; }
-        }
-        public string Name
-        {
-            get { return UserName; }
-        }
-
-        #endregion IIdentity Implementation
     }
 }

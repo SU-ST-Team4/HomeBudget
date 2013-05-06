@@ -18,7 +18,7 @@ namespace HomeBudget.DependencyResolution
         public static void SetupDependencyInjection()
         {
             IKernel kernel = new StandardKernel();
-            kernel.Bind<IUserService>().To<UserService>().WithConstructorArgument("userRepository", new GenericRepository<UserExample>());
+            kernel.Bind<IUserService>().To<UserService>().WithConstructorArgument("userRepository", new GenericRepository<User>());
 
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }

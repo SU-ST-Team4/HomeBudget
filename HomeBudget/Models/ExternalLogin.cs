@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Globalization;
 
-namespace Core.Models.Authentication
+namespace HomeBudget.Models
 {
     public class ExternalLogin
     {
