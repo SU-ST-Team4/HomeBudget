@@ -12,8 +12,13 @@ namespace Core.Services.Budget
     /// </summary>
     public interface IBudgetService
     {
-        int AddBudgetItem(BudgetItem budgetItem);
+        int InsertBudgetItem(BudgetItem budgetItem);
+        void UpdateBudgetItem(BudgetItem budgetItem);
+        void DeleteBudgetItem(int id);
+        List<BudgetItem> GetAllBudgetItems(BudgetItem budgetItem);
         List<BudgetCategory> GetAllBudgetCategories();
         int InsertBudgetCategory(BudgetCategory budgetCategory);
+        void UpdateBudgetCategory(BudgetCategory budgetCategory);
+        void DeleteBudgetCategory(int id);
     }
 }

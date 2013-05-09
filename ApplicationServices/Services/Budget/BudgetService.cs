@@ -47,18 +47,6 @@ namespace ApplicationServices.Services.Budget
         #region Methods
 
         /// <summary>
-        /// Add budget item into the system.
-        /// </summary>
-        /// <param name="budgetItem"></param>
-        /// <returns></returns>
-        public int AddBudgetItem(BudgetItem budgetItem)
-        {
-            int result = _budgetItemRepository.Insert(budgetItem);
-            _budgetCategoryRepository.SaveChanges();
-
-            return result;
-        }
-        /// <summary>
         /// Gets all budget categories.
         /// </summary>
         /// <returns></returns>
@@ -77,6 +65,64 @@ namespace ApplicationServices.Services.Budget
             _budgetCategoryRepository.SaveChanges();
 
             return result;
+        }
+        /// <summary>
+        /// Updates budget category
+        /// </summary>
+        /// <param name="budgetCategory"></param>
+        public void UpdateBudgetCategory(BudgetCategory budgetCategory)
+        {
+            _budgetCategoryRepository.Update(budgetCategory);
+            _budgetCategoryRepository.SaveChanges();
+        }
+        /// <summary>
+        /// Deletes a budgetCategory
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteBudgetCategory(int id)
+        {
+            _budgetCategoryRepository.Delete(id);
+            _budgetCategoryRepository.SaveChanges();
+        }
+        /// <summary>
+        /// Get all budget items.
+        /// </summary>
+        /// <param name="budgetItem"></param>
+        /// <returns></returns>
+        public List<BudgetItem> GetAllBudgetItems(BudgetItem budgetItem)
+        {
+            return _budgetItemRepository.Get(null, c => c.OrderBy(i => i.Date))
+                                        .ToList();
+        }
+        /// <summary>
+        /// Add budget item into the system.
+        /// </summary>
+        /// <param name="budgetItem"></param>
+        /// <returns></returns>
+        public int InsertBudgetItem(BudgetItem budgetItem)
+        {
+            int result = _budgetItemRepository.Insert(budgetItem);
+            _budgetCategoryRepository.SaveChanges();
+
+            return result;
+        }
+        /// <summary>
+        /// Updates a budgetItem
+        /// </summary>
+        /// <param name="budgetItem"></param>
+        public void UpdateBudgetItem(BudgetItem budgetItem)
+        {
+            _budgetItemRepository.Update(budgetItem);
+            _budgetItemRepository.SaveChanges();
+        }
+        /// <summary>
+        /// Deletes a budgetItem
+        /// </summary>
+        /// <param name="budgetItem"></param>
+        public void DeleteBudgetItem(int id)
+        {
+            _budgetItemRepository.Delete(id);
+            _budgetItemRepository.SaveChanges();
         }
 
         #endregion Methods
