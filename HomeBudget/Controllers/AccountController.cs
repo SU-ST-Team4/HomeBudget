@@ -9,7 +9,6 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using HomeBudget.Filters;
-using Core.Services.Authentication;
 using HomeBudget.Models;
 using Core.Models.Authentication;
 using Infrastructure.Data;

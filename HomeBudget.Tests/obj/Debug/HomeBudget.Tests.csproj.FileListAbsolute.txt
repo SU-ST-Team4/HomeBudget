@@ -76,12 +76,11 @@ C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\System.W
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\System.Web.WebPages.Razor.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\System.Web.Optimization.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Ninject.dll
-C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Core.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Microsoft.Web.WebPages.OAuth.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\DotNetOpenAuth.AspNet.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Infrastructure.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\EntityFramework.dll
-C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\ApplicationServices.dll
+C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Core.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\WebGrease.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\DotNetOpenAuth.Core.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\DotNetOpenAuth.OAuth.Consumer.dll
@@ -104,12 +103,11 @@ C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\System.W
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Ninject.pdb
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Ninject.xml
-C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Core.pdb
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Microsoft.Web.WebPages.OAuth.xml
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\DotNetOpenAuth.AspNet.xml
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Infrastructure.pdb
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\EntityFramework.xml
-C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\ApplicationServices.pdb
+C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\Core.pdb
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\DotNetOpenAuth.Core.xml
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\DotNetOpenAuth.OAuth.Consumer.xml
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget.Tests\bin\Debug\DotNetOpenAuth.OAuth.xml

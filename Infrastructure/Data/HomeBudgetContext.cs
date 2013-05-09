@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Core.Models.Authentication;
+using Core.Models.Budget;
 
 namespace Infrastructure.Data
 {
@@ -15,7 +16,8 @@ namespace Infrastructure.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<BudgetItem> BudgetItems { get; set; }
+        public DbSet<BudgetCategory> BudgetCategories { get; set; }
     }
 }

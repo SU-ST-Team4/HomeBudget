@@ -7,7 +7,6 @@ using System.Globalization;
 
 namespace Core.Models.Authentication
 {
-    [Table("UserProfile")]
     public class UserProfile
     {
         [Key]

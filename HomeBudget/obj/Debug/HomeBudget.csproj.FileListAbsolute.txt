@@ -56,9 +56,6 @@ C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\HomeBudget\obj
 C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\HomeBudget\bin\Ninject.dll
 C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\HomeBudget\bin\Ninject.pdb
 C:\Users\Doctora\Documents\Visual Studio 2012\Projects\HomeBudget\HomeBudget\bin\Ninject.xml
-C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\obj\Debug\HomeBudget.csprojResolveAssemblyReference.cache
-C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\obj\Debug\HomeBudget.dll
-C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\obj\Debug\HomeBudget.pdb
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\bin\HomeBudget.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\bin\HomeBudget.pdb
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\bin\Antlr3.Runtime.dll
@@ -114,3 +111,6 @@ C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\bin\DotNetOpenAuth.OAuth
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\bin\DotNetOpenAuth.OAuth.xml
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\bin\DotNetOpenAuth.OpenId.xml
 C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\obj\Debug\HomeBudget.csprojResolveAssemblyReference.cache
+C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\obj\Debug\HomeBudget.dll
+C:\Users\Doctora\Documents\GitHub\HomeBudget\HomeBudget\obj\Debug\HomeBudget.pdb

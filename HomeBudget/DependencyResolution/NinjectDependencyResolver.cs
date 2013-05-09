@@ -2,7 +2,6 @@
 using System;
 using System.Web.Mvc;
 using Core;
-using Core.Services;
 using Core.Models;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
