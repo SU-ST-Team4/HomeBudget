@@ -9,6 +9,7 @@ using Core.Models;
 
 namespace Core.Models.Budget
 {
+    [Table("BudgetItems")]
     public class BudgetItem : IEntity
     {
         [Key]
