@@ -67,6 +67,17 @@ namespace ApplicationServices.Services.Budget
             return _budgetCategoryRepository.Get(null, c => c.OrderBy(i => i.Name))
                                             .ToList();
         }
+        /// <summary>
+        /// Insert budget category
+        /// </summary>
+        /// <returns></returns>
+        public int InsertBudgetCategory(BudgetCategory budgetCategory)
+        {
+            int result = _budgetCategoryRepository.Insert(budgetCategory);
+            _budgetCategoryRepository.SaveChanges();
+
+            return result;
+        }
 
         #endregion Methods
     }

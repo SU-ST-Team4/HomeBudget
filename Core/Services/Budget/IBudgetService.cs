@@ -14,5 +14,6 @@ namespace Core.Services.Budget
     {
         int AddBudgetItem(BudgetItem budgetItem);
         List<BudgetCategory> GetAllBudgetCategories();
+        int InsertBudgetCategory(BudgetCategory budgetCategory);
     }
 }
