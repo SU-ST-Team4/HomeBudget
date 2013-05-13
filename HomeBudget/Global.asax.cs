@@ -13,6 +13,7 @@ using Infrastructure.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Configuration;
+using HomeBudget.DependencyResolution;
 
 namespace HomeBudget
 {
@@ -23,6 +24,7 @@ namespace HomeBudget
         protected void Application_Start()
         {
             DependencyResolution.NinjectUtil.SetupDependencyInjection();
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(DependencyResolution.NinjectUtil.kernel));
 
             using (var ctx = new HomeBudgetContext())
             {

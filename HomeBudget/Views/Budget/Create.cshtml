@@ -1,0 +1,65 @@
+﻿@model Core.Models.Budget.BudgetItem
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>BudgetItem</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Date)
+        </div>
+        <div class="editor-field">
+            <input id="datepicker" type="text" value="" />
+            @Html.HiddenFor(model => model.Date)
+            @Html.ValidationMessageFor(model => model.Date)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-field">
+            @Html.DropDownList("categoryList")
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/jquery-ui-1.8.20.min.js")
+    @Styles.Render("~/Content/themes/base/jquery.ui.core.css", "~/Content/themes/base/jquery.ui.datepicker.css", "~/Content/themes/base/jquery.ui.theme.css")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#datepicker").datepicker({
+                altField: "#Date",
+                altFormat: "yy-mm-dd 00:00:00"
+            }).val($('#Date').val());
+        });
+    </script>
+}

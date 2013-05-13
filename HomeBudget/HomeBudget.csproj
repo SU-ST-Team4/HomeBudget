@@ -165,13 +165,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BudgetCategoryController.cs" />
+    <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DependencyResolution\NinjectControllerFactory.cs" />
     <Compile Include="DependencyResolution\NinjectDependencyResolver.cs" />
     <Compile Include="DependencyResolution\NinjectUtil.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\UserProfile\CurrentUser.cs" />
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PublicLoginPasswordModel.cs" />
@@ -290,6 +294,16 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\BudgetCategory\Index.cshtml" />
+    <Content Include="Views\BudgetCategory\Details.cshtml" />
+    <Content Include="Views\BudgetCategory\Create.cshtml" />
+    <Content Include="Views\BudgetCategory\Edit.cshtml" />
+    <Content Include="Views\BudgetCategory\Delete.cshtml" />
+    <Content Include="Views\Budget\Index.cshtml" />
+    <Content Include="Views\Budget\Details.cshtml" />
+    <Content Include="Views\Budget\Create.cshtml" />
+    <Content Include="Views\Budget\Edit.cshtml" />
+    <Content Include="Views\Budget\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

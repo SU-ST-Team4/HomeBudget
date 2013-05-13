@@ -8,15 +8,16 @@ using Core.Data;
 using Core.Models.Authentication;
 using Infrastructure.Data;
 using DependencyResolution;
+using Core.Services.Budget;
+using ApplicationServices.Services.Budget;
 
 namespace HomeBudget.DependencyResolution
 {
     public static class NinjectUtil
     {
+        public static IKernel kernel = new StandardKernel();
         public static void SetupDependencyInjection()
         {
-            IKernel kernel = new StandardKernel();
-
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }

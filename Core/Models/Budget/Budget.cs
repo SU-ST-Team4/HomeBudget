@@ -21,5 +21,6 @@ namespace Core.Models.Budget
         public decimal Amount { get; set; }
         [StringLength(300)]
         public string Description { get; set; }
+
     }
 }

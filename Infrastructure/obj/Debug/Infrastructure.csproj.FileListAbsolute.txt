@@ -18,3 +18,15 @@ C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\EntityFram
 C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
 C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.pdb
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Infrastructure.dll.config
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Infrastructure.dll
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Infrastructure.pdb
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Core.dll
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\EntityFramework.dll
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\Core.pdb
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\bin\Debug\EntityFramework.xml
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.Migrations.InitialMigrations.resources
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.csproj.GenerateResource.Cache
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.dll
+C:\Users\Iskren\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.pdb

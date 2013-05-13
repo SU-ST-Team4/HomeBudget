@@ -12,3 +12,10 @@ C:\Users\Doctora\Documents\GitHub\HomeBudget\ApplicationServices\bin\Debug\Core.
 C:\Users\Doctora\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.csprojResolveAssemblyReference.cache
 C:\Users\Doctora\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.dll
 C:\Users\Doctora\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.pdb
+C:\Users\Iskren\Documents\GitHub\HomeBudget\ApplicationServices\bin\Debug\ApplicationServices.dll
+C:\Users\Iskren\Documents\GitHub\HomeBudget\ApplicationServices\bin\Debug\ApplicationServices.pdb
+C:\Users\Iskren\Documents\GitHub\HomeBudget\ApplicationServices\bin\Debug\Core.dll
+C:\Users\Iskren\Documents\GitHub\HomeBudget\ApplicationServices\bin\Debug\Core.pdb
+C:\Users\Iskren\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.csprojResolveAssemblyReference.cache
+C:\Users\Iskren\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.dll
+C:\Users\Iskren\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.pdb

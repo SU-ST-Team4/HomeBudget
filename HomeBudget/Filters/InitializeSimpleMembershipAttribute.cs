@@ -38,7 +38,7 @@ namespace HomeBudget.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("HomeBudget", "User", "Id", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("HomeBudget", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

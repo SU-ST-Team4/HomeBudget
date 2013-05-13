@@ -5,6 +5,7 @@ using System.Text;
 using Core.Data;
 using Core.Models.Budget;
 using Core.Services.Budget;
+using System.Linq.Expressions;
 
 namespace ApplicationServices.Services.Budget
 {
@@ -50,9 +51,9 @@ namespace ApplicationServices.Services.Budget
         /// Gets all budget categories.
         /// </summary>
         /// <returns></returns>
-        public List<BudgetCategory> GetAllBudgetCategories()
+        public List<BudgetCategory> GetAllBudgetCategories(Expression<Func<BudgetCategory, bool>> filter = null)
         {
-            return _budgetCategoryRepository.Get(null, c => c.OrderBy(i => i.Name))
+            return _budgetCategoryRepository.Get(filter, c => c.OrderBy(i => i.Name))
                                             .ToList();
         }
         /// <summary>
@@ -89,9 +90,9 @@ namespace ApplicationServices.Services.Budget
         /// </summary>
         /// <param name="budgetItem"></param>
         /// <returns></returns>
-        public List<BudgetItem> GetAllBudgetItems(BudgetItem budgetItem)
+        public List<BudgetItem> GetAllBudgetItems(Expression<Func<BudgetItem, bool>> filter = null)
         {
-            return _budgetItemRepository.Get(null, c => c.OrderBy(i => i.Date))
+            return _budgetItemRepository.Get(filter, c => c.OrderByDescending(i => i.Date))
                                         .ToList();
         }
         /// <summary>
@@ -102,7 +103,7 @@ namespace ApplicationServices.Services.Budget
         public int InsertBudgetItem(BudgetItem budgetItem)
         {
             int result = _budgetItemRepository.Insert(budgetItem);
-            _budgetCategoryRepository.SaveChanges();
+            _budgetItemRepository.SaveChanges();
 
             return result;
         }
