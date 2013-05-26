@@ -49,6 +49,7 @@ namespace HomeBudget.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(result.ViewBag.Message, HomeController.ACTION_MESSAGE_TEXT);
         }
     }
 }

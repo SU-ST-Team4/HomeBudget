@@ -15,7 +15,14 @@ namespace HomeBudget.Helpers.UserProfile
 
         public CurrentUser() {
             db = new HomeBudgetContext();
-            _user = db.UserProfiles.SingleOrDefault(u => u.UserName == HttpContext.Current.User.Identity.Name);
+            if (HttpContext.Current != null && HttpContext.Current.User != null)
+            {
+                _user = db.UserProfiles.SingleOrDefault(u => u.UserName == HttpContext.Current.User.Identity.Name);
+            }
+            else
+            {
+                _user = null;
+            }
         }
         public static CurrentUser Get()
         {
@@ -28,7 +35,9 @@ namespace HomeBudget.Helpers.UserProfile
         public int Id
         {
             get {
-                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                if (HttpContext.Current != null && 
+                    HttpContext.Current.User != null && 
+                    HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     return _user.UserId;
                 }
