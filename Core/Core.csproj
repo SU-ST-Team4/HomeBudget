@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Authentication\UserProfile.cs" />
-    <Compile Include="Models\Budget\Budget.cs" />
+    <Compile Include="Models\Budget\BudgetItem.cs" />
     <Compile Include="Models\Budget\BudgetCategory.cs" />
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

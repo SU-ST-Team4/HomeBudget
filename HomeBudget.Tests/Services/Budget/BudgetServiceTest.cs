@@ -27,49 +27,18 @@ namespace HomeBudget.Tests.Budget.Services
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void BudgetService_Constructor_Test_With_Incorrect_Arguments()
+        public void BudgetService_Constructor_Test_With_Incorrect_Second_Argument()
         {
             var categoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
             var instance = new BudgetService(categoryRepoMock.Object, null);
         }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void BudgetService_Constructor_Test_With_Incorrect_Arguments2()
+        public void BudgetService_Constructor_Test_With_Incorrect_First_Argument()
         {
             var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
             var instance = new BudgetService(null, budgetItemRepoMock.Object);
-        }
-        [TestMethod]
-        public void BudgetService_InsertBudgetCategory_With_Correct_Arguments()
-        {
-            BudgetCategory category = new BudgetCategory() { Id = 5, Name = "Pesho"};
-
-            var categoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
-            categoryRepoMock.Setup(c => c.Insert(category));
-            categoryRepoMock.Setup(c => c.SaveChanges());
-
-            var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
-
-            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
-
-            instance.InsertBudgetCategory(category);
-            categoryRepoMock.VerifyAll();
-        }
-        [TestMethod]
-        public void BudgetService_UpdateBudgetCategory_With_Correct_Arguments()
-        {
-            BudgetCategory category = new BudgetCategory() { Id = 5, Name = "Pesho" };
-
-            var categoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
-            categoryRepoMock.Setup(c => c.Update(category));
-            categoryRepoMock.Setup(c => c.SaveChanges());
-
-            var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
-
-            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
-
-            instance.UpdateBudgetCategory(category);
-            categoryRepoMock.VerifyAll();
         }
 
         [TestMethod]
@@ -91,6 +60,40 @@ namespace HomeBudget.Tests.Budget.Services
         }
 
         [TestMethod]
+        public void BudgetService_InsertBudgetCategory_With_Correct_Arguments()
+        {
+            BudgetCategory category = new BudgetCategory() { Id = 5, Name = "Pesho"};
+
+            var categoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+            categoryRepoMock.Setup(c => c.Insert(category));
+            categoryRepoMock.Setup(c => c.SaveChanges());
+
+            var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+
+            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
+
+            instance.InsertBudgetCategory(category);
+            categoryRepoMock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void BudgetService_UpdateBudgetCategory_With_Correct_Arguments()
+        {
+            BudgetCategory category = new BudgetCategory() { Id = 5, Name = "Pesho" };
+
+            var categoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+            categoryRepoMock.Setup(c => c.Update(category));
+            categoryRepoMock.Setup(c => c.SaveChanges());
+
+            var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+
+            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
+
+            instance.UpdateBudgetCategory(category);
+            categoryRepoMock.VerifyAll();
+        }
+
+        [TestMethod]
         public void BudgetService_DeleteBudgetCategory_By_Id()
         {
             BudgetCategory category = new BudgetCategory() { Id = 5, Name = "Pesho" };
@@ -105,6 +108,105 @@ namespace HomeBudget.Tests.Budget.Services
 
             instance.DeleteBudgetCategory(category.Id);
             categoryRepoMock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void BudgetService_GetAllBudgetItems_With_Correct_Arguments()
+        {
+            var itemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            itemRepoMock.Setup(c => c.Get(It.IsAny<Expression<Func<BudgetItem, bool>>>(),
+                                          It.IsAny<Func<IQueryable<BudgetItem>, IOrderedQueryable<BudgetItem>>>(),
+                                          It.IsAny<string>()))
+                                     .Returns(new List<BudgetItem>() { new BudgetItem()
+                                                                        {
+                                                                            Id = 6, 
+                                                                            Amount=21,
+                                                                            BudgetCategory = new BudgetCategory () {Id = 3, Name = "Dragan" },
+                                                                            Date = System.DateTime.MaxValue,
+                                                                            Description = "Some Description", 
+                                                                            UserId = 15
+                                                                         }
+                                                                      });
+
+            var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+
+            var instance = new BudgetService (budgetCategoryRepoMock.Object, itemRepoMock.Object);
+
+            var result = instance.GetAllBudgetItems();
+            Assert.IsTrue(result.Count == 1);
+            itemRepoMock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void BudgetService_InsertBudgetItem_With_Correct_Arguments()
+        {
+            BudgetItem item = new BudgetItem() {    
+                                                    Id = 6, 
+                                                    Amount=21,
+                                                    BudgetCategory = new BudgetCategory () {Id = 3, Name = "Dragan" },
+                                                    Date = System.DateTime.MaxValue,
+                                                    Description = "Some Description", 
+                                                    UserId = 15
+                                                };
+
+            var itemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            itemRepoMock.Setup(c => c.Insert(item));
+            itemRepoMock.Setup(c => c.SaveChanges());
+
+            var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+
+            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object);
+
+            instance.InsertBudgetItem(item);
+            itemRepoMock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void BudgetService_UpdateBudgetItem_With_Correct_Arguments()
+        {
+            BudgetItem item = new BudgetItem() {
+                                                    Id = 6,
+                                                    Amount = 21,
+                                                    BudgetCategory = new BudgetCategory() { Id = 3, Name = "Dragan" },
+                                                    Date = System.DateTime.MaxValue,
+                                                    Description = "Some Description",
+                                                    UserId = 15
+                                                };
+
+            var itemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            itemRepoMock.Setup(c => c.Update(item));
+            itemRepoMock.Setup(c => c.SaveChanges());
+
+            var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+
+            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object);
+
+            instance.UpdateBudgetItem(item);
+            itemRepoMock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void BudgetService_DeleteBudgetItem_By_Id()
+        {
+            BudgetItem item = new BudgetItem() {
+                                                    Id = 6,
+                                                    Amount = 21,
+                                                    BudgetCategory = new BudgetCategory() { Id = 3, Name = "Dragan" },
+                                                    Date = System.DateTime.MaxValue,
+                                                    Description = "Some Description",
+                                                    UserId = 15
+                                                };
+
+            var itemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            itemRepoMock.Setup(c => c.Delete(item.Id));
+            itemRepoMock.Setup(c => c.SaveChanges());
+
+            var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+
+            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object);
+
+            instance.DeleteBudgetItem(item.Id);
+            itemRepoMock.VerifyAll();
         }
     }
 }
