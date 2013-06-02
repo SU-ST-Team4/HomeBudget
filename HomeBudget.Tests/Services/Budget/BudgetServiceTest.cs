@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ApplicationServices.Services.Budget;
 using Core.Services.Budget;
 using Core.Models.Budget;
+using Core.Models.Authentication;
 using Core.Data;
 using System.Linq.Expressions;
 
@@ -21,7 +22,8 @@ namespace HomeBudget.Tests.Budget.Services
         {
             var categoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
             var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
-            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
+            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object, recurrentBudgetRepository.Object);
             Assert.IsNotNull(instance);
         }
 
@@ -30,7 +32,8 @@ namespace HomeBudget.Tests.Budget.Services
         public void BudgetService_Constructor_Test_With_Incorrect_Second_Argument()
         {
             var categoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
-            var instance = new BudgetService(categoryRepoMock.Object, null);
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
+            var instance = new BudgetService(categoryRepoMock.Object, null, recurrentBudgetRepository.Object);
         }
 
         [TestMethod]
@@ -38,7 +41,8 @@ namespace HomeBudget.Tests.Budget.Services
         public void BudgetService_Constructor_Test_With_Incorrect_First_Argument()
         {
             var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
-            var instance = new BudgetService(null, budgetItemRepoMock.Object);
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
+            var instance = new BudgetService(null, budgetItemRepoMock.Object, recurrentBudgetRepository.Object);
         }
 
         [TestMethod]
@@ -51,8 +55,9 @@ namespace HomeBudget.Tests.Budget.Services
                             .Returns(new List<BudgetCategory>() { new BudgetCategory() { Id = 5, Name = "Pesho" } });
 
             var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
+            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object, recurrentBudgetRepository.Object);
 
             var result = instance.GetAllBudgetCategories();
             Assert.IsTrue(result.Count == 1);
@@ -69,8 +74,9 @@ namespace HomeBudget.Tests.Budget.Services
             categoryRepoMock.Setup(c => c.SaveChanges());
 
             var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
+            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object, recurrentBudgetRepository.Object);
 
             instance.InsertBudgetCategory(category);
             categoryRepoMock.VerifyAll();
@@ -86,8 +92,9 @@ namespace HomeBudget.Tests.Budget.Services
             categoryRepoMock.Setup(c => c.SaveChanges());
 
             var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
+            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object, recurrentBudgetRepository.Object);
 
             instance.UpdateBudgetCategory(category);
             categoryRepoMock.VerifyAll();
@@ -103,8 +110,9 @@ namespace HomeBudget.Tests.Budget.Services
             categoryRepoMock.Setup(c => c.SaveChanges());
 
             var budgetItemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object);
+            var instance = new BudgetService(categoryRepoMock.Object, budgetItemRepoMock.Object, recurrentBudgetRepository.Object);
 
             instance.DeleteBudgetCategory(category.Id);
             categoryRepoMock.VerifyAll();
@@ -124,15 +132,16 @@ namespace HomeBudget.Tests.Budget.Services
                                                                             BudgetCategory = new BudgetCategory () {Id = 3, Name = "Dragan" },
                                                                             Date = System.DateTime.MaxValue,
                                                                             Description = "Some Description", 
-                                                                            UserId = 15
+                                                                            UserProfile = new UserProfile() { UserId = 15}
                                                                          }
                                                                       });
 
             var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService (budgetCategoryRepoMock.Object, itemRepoMock.Object);
+            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object, recurrentBudgetRepository.Object);
 
-            var result = instance.GetAllBudgetItems();
+            var result = instance.GetAllNonRecurrentBudgetItems();
             Assert.IsTrue(result.Count == 1);
             itemRepoMock.VerifyAll();
         }
@@ -145,8 +154,8 @@ namespace HomeBudget.Tests.Budget.Services
                                                     Amount=21,
                                                     BudgetCategory = new BudgetCategory () {Id = 3, Name = "Dragan" },
                                                     Date = System.DateTime.MaxValue,
-                                                    Description = "Some Description", 
-                                                    UserId = 15
+                                                    Description = "Some Description",
+                                                    UserProfile = new UserProfile() { UserId = 15 }
                                                 };
 
             var itemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
@@ -154,8 +163,9 @@ namespace HomeBudget.Tests.Budget.Services
             itemRepoMock.Setup(c => c.SaveChanges());
 
             var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object);
+            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object, recurrentBudgetRepository.Object);
 
             instance.InsertBudgetItem(item);
             itemRepoMock.VerifyAll();
@@ -170,7 +180,7 @@ namespace HomeBudget.Tests.Budget.Services
                                                     BudgetCategory = new BudgetCategory() { Id = 3, Name = "Dragan" },
                                                     Date = System.DateTime.MaxValue,
                                                     Description = "Some Description",
-                                                    UserId = 15
+                                                    UserProfile = new UserProfile() { UserId = 15 }
                                                 };
 
             var itemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
@@ -178,8 +188,9 @@ namespace HomeBudget.Tests.Budget.Services
             itemRepoMock.Setup(c => c.SaveChanges());
 
             var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object);
+            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object, recurrentBudgetRepository.Object);
 
             instance.UpdateBudgetItem(item);
             itemRepoMock.VerifyAll();
@@ -194,7 +205,7 @@ namespace HomeBudget.Tests.Budget.Services
                                                     BudgetCategory = new BudgetCategory() { Id = 3, Name = "Dragan" },
                                                     Date = System.DateTime.MaxValue,
                                                     Description = "Some Description",
-                                                    UserId = 15
+                                                    UserProfile = new UserProfile() { UserId = 15 }
                                                 };
 
             var itemRepoMock = new Mock<IGenericRepository<BudgetItem>>();
@@ -202,8 +213,9 @@ namespace HomeBudget.Tests.Budget.Services
             itemRepoMock.Setup(c => c.SaveChanges());
 
             var budgetCategoryRepoMock = new Mock<IGenericRepository<BudgetCategory>>();
+            var recurrentBudgetRepository = new Mock<IGenericRepository<RecurrentBudget>>();
 
-            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object);
+            var instance = new BudgetService(budgetCategoryRepoMock.Object, itemRepoMock.Object, recurrentBudgetRepository.Object);
 
             instance.DeleteBudgetItem(item.Id);
             itemRepoMock.VerifyAll();

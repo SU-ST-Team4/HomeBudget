@@ -3,6 +3,7 @@ using Core.Services.Budget;
 using HomeBudget.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Core.Models.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -21,7 +22,7 @@ namespace HomeBudget.Tests.Controllers
 
             budgetServiceMock.Setup(bs => bs.GetAllBudgetCategories(It.IsAny<Expression<Func<BudgetCategory, bool>>>()))
                              .Returns(new List<BudgetCategory>() { new BudgetCategory(){Id = 5}});
-            budgetServiceMock.Setup(bs => bs.GetAllBudgetItems(It.IsAny<Expression<Func<BudgetItem, bool>>>()))
+            budgetServiceMock.Setup(bs => bs.GetAllNonRecurrentBudgetItems(It.IsAny<Expression<Func<BudgetItem, bool>>>()))
                              .Returns(new List<BudgetItem>()
                                      {
                                          new BudgetItem(){Id = 20},
@@ -38,23 +39,23 @@ namespace HomeBudget.Tests.Controllers
             Assert.IsTrue((result.Model as IEnumerable<Core.Models.Budget.BudgetItem>).ToList()[1].Id == 21);
 
             budgetServiceMock.Verify(bs => bs.GetAllBudgetCategories(It.IsAny<Expression<Func<BudgetCategory, bool>>>()), Times.Exactly(1));
-            budgetServiceMock.Verify(bs => bs.GetAllBudgetItems(It.IsAny<Expression<Func<BudgetItem, bool>>>()), Times.Exactly(1));
+            budgetServiceMock.Verify(bs => bs.GetAllNonRecurrentBudgetItems(It.IsAny<Expression<Func<BudgetItem, bool>>>()), Times.Exactly(1));
         }
         [TestMethod]
         public void BudgetController_Create_Valid_BudgetItem()
         {
-            BudgetItem bi1 = new BudgetItem() 
-            { 
-                Amount = 10, 
-                Id = 5, 
-                BudgetCategory = new BudgetCategory() 
-                { 
+            BudgetItem bi1 = new BudgetItem()
+            {
+                Amount = 10,
+                Id = 5,
+                BudgetCategory = new BudgetCategory()
+                {
                     Id = 2,
                     Name = "Grudi"
                 },
                 Date = DateTime.Now,
                 Description = "Kvo puk",
-                UserId = 0
+                UserProfile = new UserProfile() { UserId = 0 }
             };
 
             var budgetServiceMock = new Mock<IBudgetService>();

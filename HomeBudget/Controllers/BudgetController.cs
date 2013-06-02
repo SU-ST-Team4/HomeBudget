@@ -27,7 +27,7 @@ namespace HomeBudget.Controllers
             int userId = CurrentUser.Get().Id;
             ViewBag.categories = _budgetService.GetAllBudgetCategories();
 
-            return View(_budgetService.GetAllBudgetItems(bi => bi.UserId == userId));
+            return View(_budgetService.GetAllNonRecurrentBudgetItems(bi => bi.UserProfile.UserId == userId));
         }
 
         //
@@ -35,7 +35,7 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Details(int id = 0)
         {
-            BudgetItem budgetitem = _budgetService.GetAllBudgetItems(bi => bi.Id == id).First();
+            BudgetItem budgetitem = _budgetService.GetAllNonRecurrentBudgetItems(bi => bi.Id == id).First();
             if (budgetitem == null)
             {
                 return HttpNotFound();
@@ -66,7 +66,7 @@ namespace HomeBudget.Controllers
                .Select(x => new { value = x.Id, text = x.Name }),
                "value", "text");
 
-            budgetitem.UserId = CurrentUser.Get().Id;
+            budgetitem.UserProfile = new Core.Models.Authentication.UserProfile() { UserId = CurrentUser.Get().Id };
             if (ModelState.IsValid)
             {
                 _budgetService.InsertBudgetItem(budgetitem);
@@ -84,7 +84,7 @@ namespace HomeBudget.Controllers
             ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
                .Select(x => new { value = x.Id, text = x.Name }),
                "value", "text");
-            BudgetItem budgetitem = _budgetService.GetAllBudgetItems(bi => bi.Id == id).First();
+            BudgetItem budgetitem = _budgetService.GetAllNonRecurrentBudgetItems(bi => bi.Id == id).First();
             if (budgetitem == null)
             {
                 return HttpNotFound();
@@ -103,7 +103,7 @@ namespace HomeBudget.Controllers
             ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
                .Select(x => new { value = x.Id, text = x.Name }),
                "value", "text");
-            budgetitem.UserId = CurrentUser.Get().Id;
+            budgetitem.UserProfile = new Core.Models.Authentication.UserProfile { UserId = CurrentUser.Get().Id};
             if (ModelState.IsValid)
             {
                 _budgetService.UpdateBudgetItem(budgetitem);

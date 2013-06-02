@@ -44,6 +44,8 @@
     <Compile Include="Models\Authentication\UserProfile.cs" />
     <Compile Include="Models\Budget\BudgetItem.cs" />
     <Compile Include="Models\Budget\BudgetCategory.cs" />
+    <Compile Include="Models\Budget\MonthlyBudgetStatistics.cs" />
+    <Compile Include="Models\Budget\RecurrentBudget.cs" />
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\IGenericRepository.cs" />
