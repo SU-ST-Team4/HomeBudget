@@ -6,6 +6,7 @@ using Core.Data;
 using Core.Models.Budget;
 using Core.Services.Budget;
 using System.Linq.Expressions;
+using Core.Models.Authentication;
 
 namespace ApplicationServices.Services.Budget
 {
@@ -17,7 +18,7 @@ namespace ApplicationServices.Services.Budget
         #region Fields
 
         private readonly IGenericRepository<BudgetCategory> _budgetCategoryRepository;
-        private readonly IGenericRepository<BudgetItem> _budgetItemRepository;
+        public readonly IGenericRepository<BudgetItem> _budgetItemRepository;
         private readonly IGenericRepository<RecurrentBudget> _recurrentBudgetRepository;
 
         #endregion Fields
@@ -95,16 +96,28 @@ namespace ApplicationServices.Services.Budget
             _budgetCategoryRepository.SaveChanges();
         }
         /// <summary>
+        /// Get All recurrent budget items by filter.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public List<BudgetItem> GetAllBudgetItems(Expression<Func<BudgetItem, bool>> filter = null)
+        {
+            return _budgetItemRepository.Get(filter, c => c.OrderBy(i => i.Date))
+                                        .Where(bi => (bi.RecurrentBudget != null && bi.IsApproved == true) || bi.RecurrentBudget == null)
+                                        .ToList();
+        }
+        /// <summary>
         /// Get all non-recurrent budget items.
         /// </summary>
         /// <param name="budgetItem"></param>
         /// <returns></returns>
         public List<BudgetItem> GetAllNonRecurrentBudgetItems(Expression<Func<BudgetItem, bool>> filter = null)
         {
-            return _budgetItemRepository.Get(filter, c => c.OrderByDescending(i => i.Date))
+            return _budgetItemRepository.Get(filter, c => c.OrderByDescending(i => i.Date), "UserProfile,BudgetCategory")
                                         .Where(i => i.RecurrentBudget == null)
                                         .ToList();
         }
+        
         /// <summary>
         /// Add budget item into the system.
         /// </summary>
@@ -117,8 +130,9 @@ namespace ApplicationServices.Services.Budget
 
             return result;
         }
+
         /// <summary>
-        /// Updates a budgetItem
+        /// Updates a budgetItem]om
         /// </summary>
         /// <param name="budgetItem"></param>
         public void UpdateBudgetItem(BudgetItem budgetItem)
@@ -134,6 +148,47 @@ namespace ApplicationServices.Services.Budget
         {
             _budgetItemRepository.Delete(id);
             _budgetItemRepository.SaveChanges();
+        }
+
+        public UserProfile GetUserProfile(string context, string UserName)
+        {
+            switch (context) {
+                case "budgetItem":
+                    return _budgetItemRepository.GetUserProfile(UserName);
+                case "recurrentBudget":
+                    return _recurrentBudgetRepository.GetUserProfile(UserName);
+                default:
+                    throw new Exception("Invalid context:"+ context);
+            }
+        }
+        public BudgetCategory GetCategory(string context, int BudgetCategoryId)
+        {
+            switch (context)
+            {
+                case "budgetItem":
+                    return _budgetItemRepository.GetBudgetCategory(BudgetCategoryId);
+
+                case "recurrentBudget":
+                    return _recurrentBudgetRepository.GetBudgetCategory(BudgetCategoryId);
+
+                default:
+                    throw new Exception("Invalid context:" + context);
+            }
+        }
+
+        public RecurrentBudget GetRecurrentBudget(string context, int RecurrentId)
+        {
+            switch (context)
+            {
+                case "budgetItem":
+                    return _budgetItemRepository.GetRecurrentBudget(RecurrentId);
+
+                case "recurrentBudget":
+                    return _recurrentBudgetRepository.GetRecurrentBudget(RecurrentId);;
+
+                default:
+                    throw new Exception("Invalid context:" + context);
+            }
         }
         /// <summary>
         /// Get All recurrent budgets by filter.
@@ -168,25 +223,30 @@ namespace ApplicationServices.Services.Budget
             }
 
             _recurrentBudgetRepository.Insert(recurrentBudget);
-            
+            _recurrentBudgetRepository.SaveChanges();
+
+            RecurrentBudget recurrentBudgetForItems = _budgetItemRepository.GetRecurrentBudget(recurrentBudget.Id);
+
             DateTime date = recurrentBudget.StartDate;
 
+            BudgetCategory budgetCategory = _budgetItemRepository.GetBudgetCategory(recurrentBudget.BudgetCategory.Id);
+            UserProfile userProfile = _budgetItemRepository.GetUserProfile(recurrentBudget.UserProfile.UserName);
             for (int index = 0; index < recurrentBudget.Count; index++)
             {
+                
                 _budgetItemRepository.Insert(new BudgetItem()
                                             {
                                                 Amount = recurrentBudget.Amount,
-                                                BudgetCategory = recurrentBudget.BudgetCategory,
+                                                BudgetCategory = budgetCategory,
                                                 Date = date,
                                                 Description = recurrentBudget.Description,
                                                 IsApproved = false,
-                                                RecurrentBudget = recurrentBudget,
-                                                UserProfile = recurrentBudget.UserProfile
+                                                RecurrentBudget = recurrentBudgetForItems,
+                                                UserProfile = userProfile
                                             });
                 date = date.AddMonths(1);
             }
             _budgetItemRepository.SaveChanges();
-            _recurrentBudgetRepository.SaveChanges();
         }
         /// <summary>
         /// Updates recurrent budget with its budget items.
@@ -195,8 +255,9 @@ namespace ApplicationServices.Services.Budget
         public void UpdateRecurrentBudget(RecurrentBudget recurrentBudget)
         {
             _recurrentBudgetRepository.Update(recurrentBudget);
+            List<BudgetItem> budgetItems = GetAllRecurrentBudgetItems(i => i.RecurrentBudget.Id == recurrentBudget.Id);
 
-            foreach (BudgetItem budgetItem in recurrentBudget.BudgetItems)
+            foreach (BudgetItem budgetItem in budgetItems)
             {
                 if (!budgetItem.IsApproved.Value)
                 {
@@ -241,15 +302,18 @@ namespace ApplicationServices.Services.Budget
 
             DateTime currentMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
             DateTime iterationMonth = currentMonth.AddMonths(- numberOfMonths + 1);
+            DateTime aMonthAhead;
+            DateTime twoMonthsAhead;
 
             for (int monthIndex = 1; monthIndex <= numberOfMonths; monthIndex++)
             {
                 MonthlyBudgetStatistics currentMonthlyBudgetStatistics = new MonthlyBudgetStatistics();
                 currentMonthlyBudgetStatistics.Month = iterationMonth;
 
+                aMonthAhead = iterationMonth.AddMonths(1);
                 List<BudgetItem> currentApprovedOrNonRecurrentMonthItems = _budgetItemRepository.Get(i => i.UserProfile.UserId == userId && 
                                                                                                           i.Date >= iterationMonth &&
-                                                                                                          i.Date < iterationMonth.AddMonths(1) &&
+                                                                                                          i.Date < aMonthAhead &&
                                                                                                           (!i.IsApproved.HasValue || i.IsApproved.Value))
                                                                                                 .ToList();
 
@@ -263,17 +327,18 @@ namespace ApplicationServices.Services.Budget
 
                 iterationMonth = iterationMonth.AddMonths(monthIndex);
             }
-
+            aMonthAhead = currentMonth.AddMonths(1);
+            twoMonthsAhead = currentMonth.AddMonths(2);
 
             result.ThisMonthBudgetItems = _budgetItemRepository.Get(i => i.UserProfile.UserId == userId &&
                                                                          i.Date >= currentMonth &&
-                                                                         i.Date < currentMonth.AddMonths(1) &&
+                                                                         i.Date < aMonthAhead &&
                                                                          (!i.IsApproved.HasValue || i.IsApproved.Value))
                                                                .ToList();
 
             result.NextMonthExpectedBudgetItems = _budgetItemRepository.Get(i => i.UserProfile.UserId == userId &&
-                                                                                 i.Date >= currentMonth.AddMonths(1) &&
-                                                                                 i.Date < currentMonth.AddMonths(2))
+                                                                                 i.Date >= aMonthAhead &&
+                                                                                 i.Date < twoMonthsAhead)
                                                                        .ToList();
 
             return result;

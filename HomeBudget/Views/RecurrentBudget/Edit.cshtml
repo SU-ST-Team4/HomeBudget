@@ -1,4 +1,4 @@
-﻿@model Core.Models.Budget.BudgetItem
+﻿@model Core.Models.Budget.RecurrentBudget
 
 @{
     ViewBag.Title = "Edit";
@@ -11,15 +11,24 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>BudgetItem</legend>
+        <legend>RecurrentBudget</legend>
+
+        @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Date)
+            @Html.LabelFor(model => model.StartDate)
         </div>
         <div class="editor-field">
-            <input id="datepicker" type="text" value="" />
-            @Html.HiddenFor(model => model.Date)
-            @Html.ValidationMessageFor(model => model.Date)
+            @Html.EditorFor(model => model.StartDate)
+            @Html.ValidationMessageFor(model => model.StartDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Count)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Count)
+            @Html.ValidationMessageFor(model => model.Count)
         </div>
 
         <div class="editor-label">
@@ -38,26 +47,16 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
-        @if (Model.RecurrentBudget != null) {
-            <div class="editor-label">
-                <label>Approve</label>
-            </div>
-            <div class="radio-buttons">
-                <label>
-                    @Html.RadioButtonFor(model => Model.IsApproved, true)
-                    Yes
-                </label>
-                <label>
-                    @Html.RadioButtonFor(model => Model.IsApproved, false)
-                    No
-                </label>
-            </div>
-          }
+        <div class="editor-label">
+            @Html.Label("Category")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("BudgetCategory_Id", String.Empty)
+            @Html.ValidationMessageFor(model => model.BudgetCategory)
+        </div>
 
         <p>
-          <input type="submit" value="Save" />
-          
-
+            <input type="submit" value="Save" />
         </p>
     </fieldset>
 }
@@ -71,10 +70,9 @@
     @Styles.Render("~/Content/themes/base/jquery.ui.core.css", "~/Content/themes/base/jquery.ui.datepicker.css", "~/Content/themes/base/jquery.ui.theme.css")
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#datepicker").datepicker({
-                altField: "#Date",
-                altFormat: "yy-mm-dd 00:00:00"
-            }).val($('#Date').val());
+            $("#StartDate").val($("#StartDate").val().substring(0, $("#StartDate").val().indexOf(' '))).attr('disabled', true);
+            $('#Count, #BudgetCategory_Id').attr('disabled', true);
+            $('#Amount').val(parseInt($('#Amount').val()));
         });
     </script>
 }

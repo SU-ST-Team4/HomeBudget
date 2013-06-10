@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Core.Models.Budget.BudgetItem>
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Recurrent";
 }
 
 <h2>View your expenses and incomes</h2>
@@ -20,14 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-       
         <th>
             Category
         </th>
-        @if (ViewContext.RouteData.GetRequiredString("action") == "Recurrent")
-        {
-            <th>Approved</th>
-        }
         <th></th>
     </tr>
 
@@ -45,16 +40,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.BudgetCategory.Name)
         </td>
-        @if (ViewContext.RouteData.GetRequiredString("action") == "Recurrent")
-        {
-            <td>
-             @if(item.IsApproved.HasValue && item.IsApproved == true){
-                @:Yes
-             } else {
-                @:No
-             }
-            </td>
-        }
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

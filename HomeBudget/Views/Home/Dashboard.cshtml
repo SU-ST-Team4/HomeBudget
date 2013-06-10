@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+
+<table>
+    <thead>
+           <tr>
+               <th></th>
+               <th>Income</th>
+               <th>Cost</th>
+               <th>Balance</th>
+           </tr>
+    </thead>
+    <tbody>
+        <tr><td>Current</td>
+           <td> @{
+                    var income = ViewBag.current.Cost + ViewBag.current.Balance;
+                }
+                @income
+            </td>
+            <td>@ViewBag.current.Cost</td><td>@ViewBag.current.Balance</td>
+        </tr>
+        <tr><td>Previous</td>
+           <td> @{
+                    var cost = ViewBag.previous.Cost - ViewBag.current.Cost;
+                    var balance = ViewBag.previous.Balance - ViewBag.current.Balance;
+                    income = ViewBag.previous.Cost + ViewBag.previous.Balance;
+                }
+                @income
+            </td>
+            <td>@cost</td><td>@balance</td>
+        </tr>
+        <tr><td>Two months ago</td>
+           <td> @{
+                    cost = ViewBag.bprevious.Cost - cost;
+                    balance = ViewBag.bprevious.Balance - balance;
+                    income = cost + balance;
+                }
+                @income
+            </td>
+            <td>@cost</td><td>@balance</td>
+        </tr>
+    </tbody>
+</table>

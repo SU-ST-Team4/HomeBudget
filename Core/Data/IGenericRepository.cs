@@ -6,6 +6,8 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using Core.Models;
+using Core.Models.Authentication;
+using Core.Models.Budget;
 
 namespace Core.Data
 {
@@ -54,5 +56,10 @@ namespace Core.Data
         /// Saves the changes that were done
         /// </summary>
         void SaveChanges();
+
+        // Badddddddddd
+        UserProfile GetUserProfile(string Username);
+        BudgetCategory GetBudgetCategory(int BudgetCategoryId);
+        RecurrentBudget GetRecurrentBudget(int RecurrentBudgetId);
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Core.Models.Budget.BudgetItem
+﻿@model Core.Models.Budget.RecurrentBudget
 
 @{
     ViewBag.Title = "Details";
@@ -7,20 +7,20 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>BudgetItem</legend>
+    <legend>RecurrentBudget</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.UserProfile.UserName)
+         @Html.DisplayNameFor(model => model.StartDate)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.UserProfile.UserName)
+        @Html.DisplayFor(model => model.StartDate)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Date)
+         @Html.DisplayNameFor(model => model.Count)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Date)
+        @Html.DisplayFor(model => model.Count)
     </div>
 
     <div class="display-label">
@@ -36,19 +36,8 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.BudgetCategory.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BudgetCategory.Name)
-    </div>
 </fieldset>
 <p>
-    @if (Model.IsApproved.HasValue && Model.IsApproved == false)
-    {
-        @Html.ActionLink("Approve", "Approve", new { id=Model.Id })  @:|
-    }
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

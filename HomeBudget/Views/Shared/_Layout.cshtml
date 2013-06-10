@@ -20,7 +20,9 @@
                     </section>
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Budget")</li>
+                            <li>@Html.ActionLink("Home", "Dashboard", "Home")</li>
+                            <li>@Html.ActionLink("Budget", "Index", "Budget")</li>
+                            <li>@Html.ActionLink("Recurrent payments", "Index", "RecurrentBudget")</li>
                             <li>@Html.ActionLink("Categories", "Index", "BudgetCategory")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                         </ul>
@@ -31,6 +33,17 @@
         <div id="body">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
+                @if (ViewContext.RouteData.GetRequiredString("controller") == "Budget")
+                {
+                    <nav>
+                        <ul id="budget-menu" class="submenu">
+                            <li>@Html.ActionLink("All transactions", "Index", "Budget")</li>
+                            <li>@Html.ActionLink("Recurrent", "Recurrent", "Budget")</li>
+                            <li>@Html.ActionLink("Non recurrent", "NonRecurrent", "Budget")</li>
+                        </ul>
+                    </nav>
+                }
+
                 @RenderBody()
             </section>
         </div>

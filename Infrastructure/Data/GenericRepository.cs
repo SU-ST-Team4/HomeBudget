@@ -7,6 +7,8 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using Core.Models;
 using Core.Data;
+using Core.Models.Authentication;
+using Core.Models.Budget;
 
 namespace Infrastructure.Data
 {
@@ -19,7 +21,7 @@ namespace Infrastructure.Data
     {
         #region Fields
 
-        protected HomeBudgetContext _context;
+        protected static HomeBudgetContext _context;
         protected DbSet<TEntity> _dbSet;
 
         #endregion Fields
@@ -32,13 +34,29 @@ namespace Infrastructure.Data
         }
         public GenericRepository(HomeBudgetContext context)
         {
-            this._context = context;
+            GenericRepository<TEntity>._context = context;
             this._dbSet = context.Set<TEntity>();
         }
 
         #endregion Constructors
 
         #region Methods
+
+        /// Badddddddddd
+        public UserProfile GetUserProfile(string UserName)
+        {
+            return _context.UserProfiles.SingleOrDefault(i => i.UserName == UserName);
+        }
+
+        public BudgetCategory GetBudgetCategory(int BudgetCategoryId)
+        {
+            return _context.BudgetCategories.SingleOrDefault(i => i.Id == BudgetCategoryId);
+        }
+
+        public RecurrentBudget GetRecurrentBudget(int RecurrentBudgetId)
+        {
+            return _context.RecurrentBudgets.SingleOrDefault(i => i.Id == RecurrentBudgetId);
+        }
 
         /// <summary>
         /// Get entities by filter
@@ -127,7 +145,6 @@ namespace Infrastructure.Data
         {
             _context.SaveChanges();
         }
-
         #endregion Methods
     }
 }

@@ -27,7 +27,27 @@ namespace HomeBudget.Controllers
             int userId = CurrentUser.Get().Id;
             ViewBag.categories = _budgetService.GetAllBudgetCategories();
 
-            return View(_budgetService.GetAllNonRecurrentBudgetItems(bi => bi.UserProfile.UserId == userId));
+            return View(_budgetService.GetAllBudgetItems(bi => bi.UserProfile.UserId == userId));
+        }
+        //
+        // GET: /Budget/Recurrent
+        [Authorize]
+        public ActionResult Recurrent()
+        {
+            int userId = CurrentUser.Get().Id;
+            ViewBag.categories = _budgetService.GetAllBudgetCategories();
+
+            return View("Index", _budgetService.GetAllRecurrentBudgetItems(bi => bi.UserProfile.UserId == userId));
+        }
+        //
+        // GET: /Budget/NoneRecurrent
+        [Authorize]
+        public ActionResult NonRecurrent()
+        {
+            int userId = CurrentUser.Get().Id;
+            ViewBag.categories = _budgetService.GetAllBudgetCategories();
+
+            return View("Index", _budgetService.GetAllNonRecurrentBudgetItems(bi => bi.UserProfile.UserId == userId));
         }
 
         //
@@ -35,7 +55,7 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Details(int id = 0)
         {
-            BudgetItem budgetitem = _budgetService.GetAllNonRecurrentBudgetItems(bi => bi.Id == id).First();
+            BudgetItem budgetitem = _budgetService.GetAllRecurrentBudgetItems(bi => bi.Id == id).First();
             if (budgetitem == null)
             {
                 return HttpNotFound();
@@ -44,11 +64,22 @@ namespace HomeBudget.Controllers
         }
 
         //
+        // GET: /Budget/Approve/5
+        [Authorize]
+        public ActionResult Approve(int id)
+        {
+            _budgetService.ApproveRecurrentBudgetItem(id, true);
+
+            // unit test UNfriendly
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+        }
+
+        //
         // GET: /Budget/Create
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
+            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
                 .Select(x => new { value = x.Id, text = x.Name }),
                 "value", "text");
             return View();
@@ -62,11 +93,12 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Create(BudgetItem budgetitem)
         {
-            ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
-               .Select(x => new { value = x.Id, text = x.Name }),
-               "value", "text");
+            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
+                .Select(x => new { value = x.Id, text = x.Name }),
+                "value", "text");
 
-            budgetitem.UserProfile = new Core.Models.Authentication.UserProfile() { UserId = CurrentUser.Get().Id };
+            budgetitem.UserProfile = _budgetService.GetUserProfile("budgetItem", CurrentUser.Get().Name);
+            budgetitem.BudgetCategory = _budgetService.GetCategory("budgetItem", 2);
             if (ModelState.IsValid)
             {
                 _budgetService.InsertBudgetItem(budgetitem);
@@ -84,7 +116,7 @@ namespace HomeBudget.Controllers
             ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
                .Select(x => new { value = x.Id, text = x.Name }),
                "value", "text");
-            BudgetItem budgetitem = _budgetService.GetAllNonRecurrentBudgetItems(bi => bi.Id == id).First();
+            BudgetItem budgetitem = _budgetService.GetAllRecurrentBudgetItems(bi => bi.Id == id).First();
             if (budgetitem == null)
             {
                 return HttpNotFound();

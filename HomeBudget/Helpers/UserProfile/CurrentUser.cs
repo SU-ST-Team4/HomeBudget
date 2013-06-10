@@ -45,5 +45,22 @@ namespace HomeBudget.Helpers.UserProfile
             }
             set {}
         }
+        public string Name
+        {
+            get
+            {
+                if (HttpContext.Current != null &&
+                    HttpContext.Current.User != null &&
+                    HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    return _user.UserName;
+                }
+                return "";
+            }
+            set { }
+        }
     }
+
+
+
 }

@@ -168,6 +168,7 @@
     <Compile Include="Controllers\BudgetCategoryController.cs" />
     <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RecurrentBudgetController.cs" />
     <Compile Include="DependencyResolution\NinjectControllerFactory.cs" />
     <Compile Include="DependencyResolution\NinjectDependencyResolver.cs" />
     <Compile Include="DependencyResolution\NinjectUtil.cs" />
@@ -304,6 +305,13 @@
     <Content Include="Views\Budget\Create.cshtml" />
     <Content Include="Views\Budget\Edit.cshtml" />
     <Content Include="Views\Budget\Delete.cshtml" />
+    <Content Include="Views\RecurrentBudget\Index.cshtml" />
+    <Content Include="Views\RecurrentBudget\Details.cshtml" />
+    <Content Include="Views\RecurrentBudget\Create.cshtml" />
+    <Content Include="Views\RecurrentBudget\Edit.cshtml" />
+    <Content Include="Views\RecurrentBudget\Delete.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Budget\Recurrent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

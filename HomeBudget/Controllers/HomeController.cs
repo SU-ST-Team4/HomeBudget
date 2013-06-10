@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Core.Models.Budget;
+using Core.Services.Budget;
+using HomeBudget.Helpers.UserProfile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,16 +11,21 @@ namespace HomeBudget.Controllers
 {
     public class HomeController : Controller
     {
-        #region Fields
+        IBudgetService _budgetService;
+        public HomeController(IBudgetService budgetService)
+        {
+            _budgetService = budgetService;
+        }
+
 
         public const string ACTION_MESSAGE_TEXT = "Your contact page.";
 
-        #endregion Fields
-
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Dashboard()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
+            ViewBag.current = _budgetService.GetLastNMonthBudgetPreviewByUserId(CurrentUser.Get().Id, 1);
+            ViewBag.previous = _budgetService.GetLastNMonthBudgetPreviewByUserId(CurrentUser.Get().Id, 2);
+            ViewBag.bprevious = _budgetService.GetLastNMonthBudgetPreviewByUserId(CurrentUser.Get().Id, 3);
             return View();
         }
 

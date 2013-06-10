@@ -1,4 +1,4 @@
-﻿@model Core.Models.Budget.BudgetItem
+﻿@model Core.Models.Budget.RecurrentBudget
 
 @{
     ViewBag.Title = "Create";
@@ -9,20 +9,28 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>BudgetItem</legend>
 
+    <fieldset>
+        <legend>RecurrentBudget</legend>
         <div class="editor-label">
                <label style="display:inline"><input id="etype_1" type="radio" name="etype" checked="checked" style="width:auto" />Expense</label>
                <label style="display:inline"><input id="etype_2" type="radio" name="etype" style="width:auto" /> Income</label>
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Date)
+            @Html.LabelFor(model => model.StartDate)
         </div>
         <div class="editor-field">
             <input id="datepicker" type="text" value="" autocomplete="off" />
-            @Html.HiddenFor(model => model.Date)
-            @Html.ValidationMessageFor(model => model.Date)
+            @Html.HiddenFor(model => model.StartDate)
+            @Html.ValidationMessageFor(model => model.StartDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Count)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Count)
+            @Html.ValidationMessageFor(model => model.Count)
         </div>
 
         <div class="editor-label">
@@ -40,7 +48,7 @@
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
-
+        
         <div class="editor-label">
             @Html.Display("Category")
         </div>
@@ -63,9 +71,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#datepicker").datepicker({
-                altField: "#Date",
+                altField: "#StartDate",
                 altFormat: "yy-mm-dd 00:00:00"
-            }).val($('#Date').val());
+            }).val($('#StartDate').val());
             $("form").submit(function () {
                 if ($("#etype_1").is(":checked") && $("#Amount").val() > 0) {
                     $("#Amount").val($("#Amount").val() * -1);
