@@ -14,6 +14,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Configuration;
 using HomeBudget.DependencyResolution;
+using HomeBudget.Helpers;
 
 namespace HomeBudget
 {
@@ -38,6 +39,20 @@ namespace HomeBudget
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+        }
+
+        protected virtual void Application_BeginRequest()
+        {
+            ContextFactory.DbContext = new HomeBudgetContext();
+        }
+
+        protected virtual void Application_EndRequest()
+        {
+            var entityContext = ContextFactory.DbContext;
+            if (entityContext != null)
+            {
+                entityContext.Dispose();
+            }
         }
     }
 }

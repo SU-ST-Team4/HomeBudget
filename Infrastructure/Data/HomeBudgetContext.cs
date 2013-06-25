@@ -20,6 +20,7 @@ namespace Infrastructure.Data
         public DbSet<BudgetItem> BudgetItems { get; set; }
         public DbSet<BudgetCategory> BudgetCategories { get; set; }
         public DbSet<RecurrentBudget> RecurrentBudgets { get; set; }
+        public DbSet<HouseHold> HouseHolds { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

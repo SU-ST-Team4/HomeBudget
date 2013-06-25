@@ -1,4 +1,5 @@
 ﻿using Core.Models.Budget;
+using Core.Models.Authentication;
 using Core.Services.Budget;
 using HomeBudget.Helpers.UserProfile;
 using System;
@@ -11,10 +12,13 @@ namespace HomeBudget.Controllers
 {
     public class HomeController : Controller
     {
-        IBudgetService _budgetService;
-        public HomeController(IBudgetService budgetService)
+        private readonly IBudgetService _budgetService;
+        private readonly IHouseHoldService _houseHoldService;
+
+        public HomeController(IBudgetService budgetService, IHouseHoldService houseHoldService)
         {
             _budgetService = budgetService;
+            _houseHoldService = houseHoldService;
         }
 
 
@@ -23,9 +27,14 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Dashboard()
         {
-            ViewBag.current = _budgetService.GetLastNMonthBudgetPreviewByUserId(CurrentUser.Get().Id, 1);
-            ViewBag.previous = _budgetService.GetLastNMonthBudgetPreviewByUserId(CurrentUser.Get().Id, 2);
-            ViewBag.bprevious = _budgetService.GetLastNMonthBudgetPreviewByUserId(CurrentUser.Get().Id, 3);
+            int userId = CurrentUser.Get().Id;
+
+            List<int> userIds = _houseHoldService.GetAllHouseHoldMembersByUserId(userId).Select(u => u.UserId).ToList();
+            userIds.Add(userId);
+
+            ViewBag.current = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 1);
+            ViewBag.previous = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 2);
+            ViewBag.bprevious = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 3);
             return View();
         }
 

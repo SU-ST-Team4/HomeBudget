@@ -17,8 +17,6 @@ namespace Core.Services.Budget
         int InsertBudgetItem(BudgetItem budgetItem);
         void UpdateBudgetItem(BudgetItem budgetItem);
         void DeleteBudgetItem(int id);
-        UserProfile GetUserProfile(string context, string UserName);
-        BudgetCategory GetCategory(string context, int BudgetCategoryId);
         List<BudgetItem> GetAllBudgetItems(Expression<Func<BudgetItem, bool>> filter = null);
         List<BudgetItem> GetAllNonRecurrentBudgetItems(Expression<Func<BudgetItem, bool>> filter = null);
         List<BudgetCategory> GetAllBudgetCategories(Expression<Func<BudgetCategory, bool>> filter = null);
@@ -30,6 +28,6 @@ namespace Core.Services.Budget
         void InsertRecurrentBudget(RecurrentBudget recurrentBudget);
         void UpdateRecurrentBudget(RecurrentBudget recurrentBudget);
         void ApproveRecurrentBudgetItem(int budgetItemId, bool approve);
-        LastNMonthsPreview GetLastNMonthBudgetPreviewByUserId(int userId, int numberOfMonths);
+        LastNMonthsPreview GetLastNMonthBudgetPreviewByUserIds(List<int> userId, int numberOfMonths);
     }
 }

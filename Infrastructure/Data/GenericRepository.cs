@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.Entity;
 using System.Linq.Expressions;
+using System.Web;
 using Core.Models;
 using Core.Data;
 using Core.Models.Authentication;
@@ -28,10 +29,6 @@ namespace Infrastructure.Data
 
         #region Constructors
 
-        public GenericRepository()
-            :this(new HomeBudgetContext())
-        {
-        }
         public GenericRepository(HomeBudgetContext context)
         {
             GenericRepository<TEntity>._context = context;
@@ -41,22 +38,6 @@ namespace Infrastructure.Data
         #endregion Constructors
 
         #region Methods
-
-        /// Badddddddddd
-        public UserProfile GetUserProfile(string UserName)
-        {
-            return _context.UserProfiles.SingleOrDefault(i => i.UserName == UserName);
-        }
-
-        public BudgetCategory GetBudgetCategory(int BudgetCategoryId)
-        {
-            return _context.BudgetCategories.SingleOrDefault(i => i.Id == BudgetCategoryId);
-        }
-
-        public RecurrentBudget GetRecurrentBudget(int RecurrentBudgetId)
-        {
-            return _context.RecurrentBudgets.SingleOrDefault(i => i.Id == RecurrentBudgetId);
-        }
 
         /// <summary>
         /// Get entities by filter
@@ -145,6 +126,7 @@ namespace Infrastructure.Data
         {
             _context.SaveChanges();
         }
+
         #endregion Methods
     }
 }

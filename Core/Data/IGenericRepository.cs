@@ -56,10 +56,5 @@ namespace Core.Data
         /// Saves the changes that were done
         /// </summary>
         void SaveChanges();
-
-        // Badddddddddd
-        UserProfile GetUserProfile(string Username);
-        BudgetCategory GetBudgetCategory(int BudgetCategoryId);
-        RecurrentBudget GetRecurrentBudget(int RecurrentBudgetId);
     }
 }

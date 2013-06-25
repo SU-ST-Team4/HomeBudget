@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using HomeBudget.Helpers;
 
 namespace HomeBudget.DependencyResolution
 {
@@ -21,7 +22,7 @@ namespace HomeBudget.DependencyResolution
             ninjectKernel = kernel;
             AddBindings();
         }  
-        protected override IController GetControllerInstance(RequestContext requestContext,              Type controllerType) {  
+        protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType) {  
             return controllerType == null
                 ? null
                 : (IController)ninjectKernel.Get(controllerType);
@@ -29,7 +30,11 @@ namespace HomeBudget.DependencyResolution
         private void AddBindings() {
             // put additional bindings here
             ninjectKernel.Bind<IBudgetService>().To<BudgetService>();
+            ninjectKernel.Bind<IUserProfileService>().To<UserProfileService>();
+            ninjectKernel.Bind<IHouseHoldService>().To<HouseHoldService>();
+            ninjectKernel.Bind<HomeBudgetContext>().ToMethod(m =>  ContextFactory.DbContext);
             ninjectKernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
+
         }
     }
 }

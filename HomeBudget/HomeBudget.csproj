@@ -176,6 +176,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ContextFactory.cs" />
     <Compile Include="Helpers\UserProfile\CurrentUser.cs" />
     <Compile Include="Models\ExternalLogin.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -263,7 +264,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
+    <Content Include="Controllers\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />

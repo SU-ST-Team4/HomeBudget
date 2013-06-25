@@ -8,15 +8,19 @@ using System.Web.Mvc;
 using Core.Models.Budget;
 using Core.Services.Budget;
 using HomeBudget.Helpers.UserProfile;
+using HomeBudget.Helpers;
 
 namespace HomeBudget.Controllers
 {
     public class RecurrentBudgetController : Controller
     {
-        IBudgetService _budgetService;
-        public RecurrentBudgetController(IBudgetService budgetService)
+        private readonly IBudgetService _budgetService;
+        private readonly IUserProfileService _userProfileService;
+
+        public RecurrentBudgetController(IBudgetService budgetService, IUserProfileService userProfileService)
         {
             _budgetService = budgetService;
+            _userProfileService = userProfileService;
         }
         //
         // GET: /RecurrentBudget/
@@ -58,8 +62,9 @@ namespace HomeBudget.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(RecurrentBudget recurrentbudget)
         {
-            recurrentbudget.UserProfile = _budgetService.GetUserProfile("recurrentBudget", CurrentUser.Get().Name);
-            recurrentbudget.BudgetCategory = _budgetService.GetCategory("recurrentBudget", 2);
+            string userName = CurrentUser.Get().Name;
+            recurrentbudget.UserProfile = _userProfileService.GetUserProfileByName(userName);
+            recurrentbudget.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2); ;
             if (ModelState.IsValid)
             {
                 _budgetService.InsertRecurrentBudget(recurrentbudget);
@@ -95,8 +100,9 @@ namespace HomeBudget.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(RecurrentBudget recurrentbudget)
         {
-            recurrentbudget.UserProfile = _budgetService.GetUserProfile("recurrentBudget", CurrentUser.Get().Name);
-            recurrentbudget.BudgetCategory = _budgetService.GetCategory("recurrentBudget", 2);
+            string userName = CurrentUser.Get().Name;
+            recurrentbudget.UserProfile = _userProfileService.GetUserProfileByName(userName);
+            recurrentbudget.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2);
             if (ModelState.IsValid)
             {
                 _budgetService.UpdateRecurrentBudget(recurrentbudget);

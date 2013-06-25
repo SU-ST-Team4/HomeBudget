@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Core.Models.Budget;
 using Infrastructure.Data;
 using HomeBudget.Helpers.UserProfile;
+using HomeBudget.Helpers;
 using Core.Services.Budget;
 
 namespace HomeBudget.Controllers
@@ -15,9 +16,11 @@ namespace HomeBudget.Controllers
     public class BudgetController : Controller
     {
         IBudgetService _budgetService;
-        public BudgetController(IBudgetService budgetService)
+        IUserProfileService _userProfileService;
+        public BudgetController(IBudgetService budgetService, IUserProfileService userProfileService)
         {
             _budgetService = budgetService;
+            _userProfileService = userProfileService;
         }
         //
         // GET: /Budget/
@@ -97,8 +100,10 @@ namespace HomeBudget.Controllers
                 .Select(x => new { value = x.Id, text = x.Name }),
                 "value", "text");
 
-            budgetitem.UserProfile = _budgetService.GetUserProfile("budgetItem", CurrentUser.Get().Name);
-            budgetitem.BudgetCategory = _budgetService.GetCategory("budgetItem", 2);
+            string userName = CurrentUser.Get().Name;
+
+            budgetitem.UserProfile = _userProfileService.GetUserProfileByName(userName);
+            budgetitem.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2);
             if (ModelState.IsValid)
             {
                 _budgetService.InsertBudgetItem(budgetitem);

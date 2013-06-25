@@ -8,11 +8,18 @@ using System.Globalization;
 namespace Core.Models.Authentication
 {
     [Table("UserProfile")]
-    public class UserProfile
+    public class UserProfile : IEntity
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public int Id
+        {
+            get
+            {
+                return UserId;
+            }
+        }
     }
 }
