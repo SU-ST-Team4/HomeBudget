@@ -26,3 +26,10 @@ C:\Users\Stefan\Documents\GitHub\HomeBudget\ApplicationServices\bin\Debug\Core.p
 C:\Users\Stefan\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.csprojResolveAssemblyReference.cache
 C:\Users\Stefan\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.dll
 C:\Users\Stefan\Documents\GitHub\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.pdb
+D:\Projects\FMI\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.csprojResolveAssemblyReference.cache
+D:\Projects\FMI\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.dll
+D:\Projects\FMI\HomeBudget\ApplicationServices\obj\Debug\ApplicationServices.pdb
+D:\Projects\FMI\HomeBudget\ApplicationServices\bin\Debug\ApplicationServices.dll
+D:\Projects\FMI\HomeBudget\ApplicationServices\bin\Debug\ApplicationServices.pdb
+D:\Projects\FMI\HomeBudget\ApplicationServices\bin\Debug\Core.dll
+D:\Projects\FMI\HomeBudget\ApplicationServices\bin\Debug\Core.pdb

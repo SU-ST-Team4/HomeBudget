@@ -42,3 +42,15 @@ C:\Users\Stefan\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastruct
 C:\Users\Stefan\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.csproj.GenerateResource.Cache
 C:\Users\Stefan\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.dll
 C:\Users\Stefan\Documents\GitHub\HomeBudget\Infrastructure\obj\Debug\Infrastructure.pdb
+D:\Projects\FMI\HomeBudget\Infrastructure\bin\Debug\Infrastructure.dll.config
+D:\Projects\FMI\HomeBudget\Infrastructure\bin\Debug\Infrastructure.dll
+D:\Projects\FMI\HomeBudget\Infrastructure\bin\Debug\Infrastructure.pdb
+D:\Projects\FMI\HomeBudget\Infrastructure\bin\Debug\Core.dll
+D:\Projects\FMI\HomeBudget\Infrastructure\bin\Debug\EntityFramework.dll
+D:\Projects\FMI\HomeBudget\Infrastructure\bin\Debug\Core.pdb
+D:\Projects\FMI\HomeBudget\Infrastructure\bin\Debug\EntityFramework.xml
+D:\Projects\FMI\HomeBudget\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+D:\Projects\FMI\HomeBudget\Infrastructure\obj\Debug\Infrastructure.Migrations.InitialMigrations.resources
+D:\Projects\FMI\HomeBudget\Infrastructure\obj\Debug\Infrastructure.csproj.GenerateResource.Cache
+D:\Projects\FMI\HomeBudget\Infrastructure\obj\Debug\Infrastructure.dll
+D:\Projects\FMI\HomeBudget\Infrastructure\obj\Debug\Infrastructure.pdb
