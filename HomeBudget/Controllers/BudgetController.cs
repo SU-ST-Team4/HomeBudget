@@ -121,7 +121,7 @@ namespace HomeBudget.Controllers
             ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
                .Select(x => new { value = x.Id, text = x.Name }),
                "value", "text");
-            BudgetItem budgetitem = _budgetService.GetAllRecurrentBudgetItems(bi => bi.Id == id).First();
+            BudgetItem budgetitem = _budgetService.GetAllBudgetItems(bi => bi.Id == id).First();
             if (budgetitem == null)
             {
                 return HttpNotFound();
