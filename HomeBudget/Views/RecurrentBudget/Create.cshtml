@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.StartDate)
         </div>
         <div class="editor-field">
-            <input id="datepicker" type="text" value="" autocomplete="off" />
+            <input id="datepicker" class="text-box single-line" type="text" value="" autocomplete="off" />
             @Html.HiddenFor(model => model.StartDate)
             @Html.ValidationMessageFor(model => model.StartDate)
         </div>

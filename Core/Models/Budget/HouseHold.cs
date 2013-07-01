@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Core.Models;
 using Core.Models.Authentication;
+using HomeBudget.Helpers.Validators;
 
 namespace Core.Models.Budget
 {

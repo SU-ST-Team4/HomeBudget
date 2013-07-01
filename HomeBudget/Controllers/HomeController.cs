@@ -14,11 +14,13 @@ namespace HomeBudget.Controllers
     {
         private readonly IBudgetService _budgetService;
         private readonly IHouseHoldService _houseHoldService;
+        private readonly IUserProfileService _userProfileService;
 
-        public HomeController(IBudgetService budgetService, IHouseHoldService houseHoldService)
+        public HomeController(IBudgetService budgetService, IHouseHoldService houseHoldService, IUserProfileService userProfileService)
         {
             _budgetService = budgetService;
             _houseHoldService = houseHoldService;
+            _userProfileService = userProfileService;
         }
 
 
@@ -27,7 +29,7 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Dashboard()
         {
-            int userId = CurrentUser.Get().Id;
+            int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
 
             List<int> userIds = _houseHoldService.GetAllHouseHoldMembersByUserId(userId).Select(u => u.UserId).ToList();
             userIds.Add(userId);

@@ -17,40 +17,59 @@ namespace HomeBudget.Controllers
     {
         IBudgetService _budgetService;
         IUserProfileService _userProfileService;
-        public BudgetController(IBudgetService budgetService, IUserProfileService userProfileService)
+        IHouseHoldService _houseHoldService;
+        public BudgetController(IBudgetService budgetService, IUserProfileService userProfileService, IHouseHoldService houseHoldService)
         {
             _budgetService = budgetService;
             _userProfileService = userProfileService;
+            _houseHoldService = houseHoldService;
         }
         //
         // GET: /Budget/
         [Authorize]
         public ActionResult Index()
         {
-            int userId = CurrentUser.Get().Id;
+            int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
             ViewBag.categories = _budgetService.GetAllBudgetCategories();
 
-            return View(_budgetService.GetAllBudgetItems(bi => bi.UserProfile.UserId == userId));
+            List<int> userIds = _houseHoldService.GetAllHouseHoldMembersByUserId(userId).Select(u => u.UserId).ToList();
+            userIds.Add(userId);
+            ViewBag.hasHousehold = userIds.Count > 1;
+            ViewBag.userId = userId;
+
+            return View(_budgetService.GetAllBudgetItems(bi => userIds.Contains(bi.UserProfile.UserId)));
         }
         //
         // GET: /Budget/Recurrent
         [Authorize]
         public ActionResult Recurrent()
         {
-            int userId = CurrentUser.Get().Id;
+            int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
             ViewBag.categories = _budgetService.GetAllBudgetCategories();
 
-            return View("Index", _budgetService.GetAllRecurrentBudgetItems(bi => bi.UserProfile.UserId == userId));
+            List<int> userIds = _houseHoldService.GetAllHouseHoldMembersByUserId(userId).Select(u => u.UserId).ToList();
+            userIds.Add(userId);
+
+            ViewBag.hasHousehold = userIds.Count > 1;
+            ViewBag.userId = userId;
+
+            return View("Index", _budgetService.GetAllRecurrentBudgetItems(bi => userIds.Contains(bi.UserProfile.UserId)));
         }
         //
         // GET: /Budget/NoneRecurrent
         [Authorize]
         public ActionResult NonRecurrent()
         {
-            int userId = CurrentUser.Get().Id;
+            int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
             ViewBag.categories = _budgetService.GetAllBudgetCategories();
+            
+            List<int> userIds = _houseHoldService.GetAllHouseHoldMembersByUserId(userId).Select(u => u.UserId).ToList();
+            userIds.Add(userId);
 
-            return View("Index", _budgetService.GetAllNonRecurrentBudgetItems(bi => bi.UserProfile.UserId == userId));
+            ViewBag.hasHousehold = userIds.Count > 1;
+            ViewBag.userId = userId;
+
+            return View("Index", _budgetService.GetAllNonRecurrentBudgetItems(bi => userIds.Contains(bi.UserProfile.UserId)));
         }
 
         //
@@ -58,11 +77,14 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Details(int id = 0)
         {
-            BudgetItem budgetitem = _budgetService.GetAllRecurrentBudgetItems(bi => bi.Id == id).First();
+            BudgetItem budgetitem = _budgetService.GetAllBudgetItems(bi => bi.Id == id).First();
             if (budgetitem == null)
             {
                 return HttpNotFound();
             }
+            int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
+            ViewBag.userId = userId;
+
             return View(budgetitem);
         }
 
@@ -100,9 +122,8 @@ namespace HomeBudget.Controllers
                 .Select(x => new { value = x.Id, text = x.Name }),
                 "value", "text");
 
-            string userName = CurrentUser.Get().Name;
 
-            budgetitem.UserProfile = _userProfileService.GetUserProfileByName(userName);
+            budgetitem.UserProfile = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name);
             budgetitem.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2);
             if (ModelState.IsValid)
             {
@@ -137,10 +158,11 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Edit(BudgetItem budgetitem)
         {
+            int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
             ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
                .Select(x => new { value = x.Id, text = x.Name }),
                "value", "text");
-            budgetitem.UserProfile = new Core.Models.Authentication.UserProfile { UserId = CurrentUser.Get().Id};
+            budgetitem.UserProfile = new Core.Models.Authentication.UserProfile { UserId = userId};
             if (ModelState.IsValid)
             {
                 _budgetService.UpdateBudgetItem(budgetitem);

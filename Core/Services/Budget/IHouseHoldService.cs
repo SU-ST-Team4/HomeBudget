@@ -12,7 +12,7 @@ namespace Core.Services.Budget
         void ApproveHouseHoldRequest(int houseHoldId);
         void RemoveUserFromHouseHold(int houseHoldId);
         List<HouseHold> GetAllApprovedHouseHoldsByUserId(int userId);
-        List<UserProfile> GetAllNotApprovedHouseHoldRequestsByUserId(int userId);
+        List<HouseHold> GetAllNotApprovedHouseHoldRequestsByUserId(int userId);
         List<UserProfile> GetAllHouseHoldMembersByUserId(int userId);
         List<UserProfile> GetUserProfilesInHouseHold(int houseHoldId);
     }

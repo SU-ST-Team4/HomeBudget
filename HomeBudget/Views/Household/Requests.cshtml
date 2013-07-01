@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Core.Models.Budget.HouseHold>
+
+@{
+    ViewBag.Title = "Housholds";
+}
+
+<h2>Household Requests</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestMessage)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.First.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestMessage)
+        </td>
+        <td>
+            @Html.ActionLink("Approve", "Approve", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

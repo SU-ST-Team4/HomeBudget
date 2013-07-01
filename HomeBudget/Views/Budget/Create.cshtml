@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.Date)
         </div>
         <div class="editor-field">
-            <input id="datepicker" type="text" value="" autocomplete="off" />
+            <input id="datepicker" class="text-box single-line" type="text" value="" autocomplete="off" />
             @Html.HiddenFor(model => model.Date)
             @Html.ValidationMessageFor(model => model.Date)
         </div>
@@ -42,10 +42,13 @@
         </div>
 
         <div class="editor-label">
+            <label>Category</label>
+        </div>
+        <div class="editor-field">
             @Html.Display("Category")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("BudgetCategory_Id", String.Empty)
+            @Html.DropDownList("BudgetCategory_Id")
         </div>
         <p>
             <input type="submit" value="Create" />

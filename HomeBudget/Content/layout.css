@@ -1,0 +1,7 @@
+.col1,.col2,.col3,.cols {float:left}
+.col1 {width:500px}
+.col2 {width:290px}
+.cols {width:225px}
+/* index.html */
+body {background:url(../images/bg_top.gif)}
+body .text1 span {padding-bottom:40px}

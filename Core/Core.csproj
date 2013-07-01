@@ -53,6 +53,7 @@
     <Compile Include="Services\Budget\IBudgetService.cs" />
     <Compile Include="Services\Budget\IHouseHoldService.cs" />
     <Compile Include="Services\Budget\IUserProfileService.cs" />
+    <Compile Include="Validators\HouseHoldValidateUserProfileAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

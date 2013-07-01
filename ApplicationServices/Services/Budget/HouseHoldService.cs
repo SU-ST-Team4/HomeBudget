@@ -48,6 +48,7 @@ namespace ApplicationServices.Services.Budget
         public void RequestHouseHold(HouseHold houseHold)
         {
             _houseHoldRepository.Insert(houseHold);
+            _houseHoldRepository.SaveChanges();
         }
         /// <summary>
         /// Approves houseHold request.
@@ -57,6 +58,7 @@ namespace ApplicationServices.Services.Budget
         {
             HouseHold houseHold = _houseHoldRepository.GetByID(houseHoldId);
             houseHold.IsApproved = true;
+            houseHold.ApproveDate = DateTime.Now;
             _houseHoldRepository.Update(houseHold);
             _houseHoldRepository.SaveChanges();
         }
@@ -94,11 +96,11 @@ namespace ApplicationServices.Services.Budget
             {
                 if (houseHold.First.UserId != userId)
                 {
-                    result.Add(houseHold.Second);
+                    result.Add(houseHold.First);
                 }
                 else
                 {
-                    result.Add(houseHold.First);
+                    result.Add(houseHold.Second);
                 }
             }
 
@@ -110,10 +112,9 @@ namespace ApplicationServices.Services.Budget
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<UserProfile> GetAllNotApprovedHouseHoldRequestsByUserId(int userId)
+        public List<HouseHold> GetAllNotApprovedHouseHoldRequestsByUserId(int userId)
         {
             return _houseHoldRepository.Get(h => h.Second.UserId == userId && !h.IsApproved.HasValue)
-                                       .Select(h => h.Second)
                                        .ToList();
         }
         /// <summary>

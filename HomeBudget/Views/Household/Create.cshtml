@@ -1,0 +1,76 @@
+﻿@model HomeBudget.Models.HouseHoldRequestModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>HouseHold</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+            @Html.Editor("UserName")
+            <div id="userFound"></div>
+
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RequestMessage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RequestMessage)
+            @Html.ValidationMessageFor(model => model.RequestMessage)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/jquery-ui-1.8.20.min.js")
+    <script type="text/javascript">
+        $(function () {
+            var checkUserTime = null;
+            var checkUser = function (e) {
+                if (checkUserTime) {
+                    clearTimeout(checkUserTime);
+                }
+                var $this = $(this);
+                checkUserTime = setTimeout(function(){
+                    var searchKeyWord = $this.val();
+                    if (searchKeyWord.length <= 0) {
+                        return;
+                    } else {
+                        $.ajax('/HouseHold/FindUser', {
+                            'type': 'post',
+                            'data': {userName: $this.val()},
+                            'success': function (data) {
+                                var html;
+                                if (data.Status == true) {
+                                    html = '&#10003; user found';
+                                } else {
+                                    html = '&#8855; user not found';
+                                }
+                                $('#userFound').html(html);
+                            }
+                        });
+                    }
+                }, 150);
+            }
+            $("#UserName").keypress(checkUser).keyup(checkUser);
+        });
+    </script>
+}
+
+

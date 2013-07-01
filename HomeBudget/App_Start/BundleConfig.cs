@@ -18,12 +18,25 @@ namespace HomeBudget
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/themejs").Include(
+                        "~/Scripts/cufon-yui.js",
+                        "~/Scripts/cufon-replace.js",
+                        "~/Scripts/Myriad_Pro_400.font.js",
+                        "~/Scripts/Myriad_Pro_700.font.js",
+                        "~/Scripts/Myriad_Pro_600.font.js",
+                        "~/Scripts/themefixes.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/themecss").Include(
+                        "~/Content/layout.css",
+                        "~/Content/reset.css",
+                        "~/Content/style.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

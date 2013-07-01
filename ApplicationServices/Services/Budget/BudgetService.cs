@@ -109,7 +109,7 @@ namespace ApplicationServices.Services.Budget
         /// <returns></returns>
         public List<BudgetItem> GetAllBudgetItems(Expression<Func<BudgetItem, bool>> filter = null)
         {
-            return _budgetItemRepository.Get(filter, c => c.OrderBy(i => i.Date))
+            return _budgetItemRepository.Get(filter, c => c.OrderByDescending(i => i.Date))
                                         .Where(bi => (bi.RecurrentBudget != null && bi.IsApproved == true) || bi.RecurrentBudget == null)
                                         .ToList();
         }

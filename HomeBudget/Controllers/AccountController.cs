@@ -339,7 +339,7 @@ namespace HomeBudget.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Dashboard", "Home");
             }
         }
 
