@@ -26,13 +26,14 @@ namespace HomeBudget.Controllers
         }
         //
         // GET: /HouseHold/
-
+        [Authorize]
         public ActionResult Index()
         {
             int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
             return View(_houseService.GetAllApprovedHouseHoldsByUserId(userId));
         }
 
+        [Authorize]
         public ActionResult Requests()
         {
             int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
@@ -42,7 +43,7 @@ namespace HomeBudget.Controllers
 
         //
         // GET: /HouseHold/Create
-
+        [Authorize]
         public ActionResult Create()
         {
 
@@ -54,6 +55,7 @@ namespace HomeBudget.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(HouseHoldRequestModel householdRequest)
         {
             HouseHold household = new HouseHold();
@@ -84,7 +86,7 @@ namespace HomeBudget.Controllers
 
                 //
         // GET: /HouseHold/Delete/5
-
+        [Authorize]
         public ActionResult Delete(int id = 0)
         {
             int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
@@ -106,6 +108,7 @@ namespace HomeBudget.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult Approve(int id)
         {
             int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).Id;
@@ -129,6 +132,7 @@ namespace HomeBudget.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult FindUser(string userName)
         {
             UserProfile userProfile = _userProfileService.GetUserProfileByName(userName);

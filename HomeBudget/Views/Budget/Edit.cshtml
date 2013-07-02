@@ -37,6 +37,13 @@
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
+        <div class="editor-field">
+            @Html.Display("Category")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.BudgetCategory_Id, new SelectList(ViewBag.Categories, "value", "text"))
+            @Html.ValidationMessageFor(model => model.BudgetCategory_Id)
+        </div>
 
         @if (Model.RecurrentBudget != null) {
             <div class="editor-label">

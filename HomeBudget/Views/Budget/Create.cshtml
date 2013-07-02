@@ -48,7 +48,8 @@
             @Html.Display("Category")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("BudgetCategory_Id")
+            @Html.DropDownListFor(model => model.BudgetCategory_Id, new SelectList(ViewBag.Categories, "value", "text"))
+            @Html.ValidationMessageFor(model => model.BudgetCategory_Id)
         </div>
         <p>
             <input type="submit" value="Create" />

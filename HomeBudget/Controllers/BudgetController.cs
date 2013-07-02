@@ -104,9 +104,8 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
-                .Select(x => new { value = x.Id, text = x.Name }),
-                "value", "text");
+            ViewBag.Categories = _budgetService.GetAllBudgetCategories()
+                .Select(x => new { value = x.Id, text = x.Name });
             return View();
         }
 
@@ -118,19 +117,14 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Create(BudgetItem budgetitem)
         {
-            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
-                .Select(x => new { value = x.Id, text = x.Name }),
-                "value", "text");
-
-
             budgetitem.UserProfile = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name);
-            budgetitem.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2);
             if (ModelState.IsValid)
             {
                 _budgetService.InsertBudgetItem(budgetitem);
                 return RedirectToAction("Index");
             }
-
+            ViewBag.Categories = _budgetService.GetAllBudgetCategories()
+                .Select(x => new { value = x.Id, text = x.Name });
             return View(budgetitem);
         }
 
@@ -139,9 +133,9 @@ namespace HomeBudget.Controllers
         [Authorize]
         public ActionResult Edit(int id = 0)
         {
-            ViewBag.categoryList = new SelectList(_budgetService.GetAllBudgetCategories()
-               .Select(x => new { value = x.Id, text = x.Name }),
-               "value", "text");
+            ViewBag.Categories = _budgetService.GetAllBudgetCategories()
+                .Select(x => new { value = x.Id, text = x.Name });
+
             BudgetItem budgetitem = _budgetService.GetAllBudgetItems(bi => bi.Id == id).First();
             if (budgetitem == null)
             {
