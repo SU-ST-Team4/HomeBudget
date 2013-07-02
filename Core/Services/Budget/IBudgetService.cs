@@ -17,6 +17,7 @@ namespace Core.Services.Budget
         int InsertBudgetItem(BudgetItem budgetItem);
         void UpdateBudgetItem(BudgetItem budgetItem);
         void DeleteBudgetItem(int id);
+        List<BudgetItem> GetAllBudgetItemsApproved(Expression<Func<BudgetItem, bool>> filter = null);
         List<BudgetItem> GetAllBudgetItems(Expression<Func<BudgetItem, bool>> filter = null);
         List<BudgetItem> GetAllNonRecurrentBudgetItems(Expression<Func<BudgetItem, bool>> filter = null);
         List<BudgetCategory> GetAllBudgetCategories(Expression<Func<BudgetCategory, bool>> filter = null);

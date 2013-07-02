@@ -13,7 +13,7 @@
         <header>
             <div class="wrapper">
                 <div class="float-left">
-                    <h1>@Html.ActionLink("Home Budget", "Index", "Budget", new { id = "logo" })</h1>
+                    <h1>@Html.ActionLink("Home Budget", "Dashboard", "Budget", new { id = "logo" })</h1>
                 </div>
                 <div class="float-right">
                     <section id="login">
@@ -29,20 +29,24 @@
                         <li @(ViewContext.RouteData.GetRequiredString("controller") == "Budget" ? " id=menu_active" : "")>
                             <a href="@Url.Action("Index", "Budget")"><span><span>Budget</span></span></a></li>
                         <li @(ViewContext.RouteData.GetRequiredString("controller") == "RecurrentBudget" ? " id=menu_active" : "")>
-                            <a href="@Url.Action("Index", "RecurrentBudget")"><span><span>Recurrent</span></span></a></li>
+                            <a href="@Url.Action("Index", "RecurrentBudget")"><span><span>Recurrent</span></span></a>
+                        </li>
                         <li @(ViewContext.RouteData.GetRequiredString("controller") == "Household" ? " id=menu_active" : "")>
                             <a href="@Url.Action("Index", "Household")"><span><span>Household</span></span></a>
                         </li>
                         <li @(ViewContext.RouteData.GetRequiredString("controller") == "BudgetCategory" ? " id=menu_active" : "")>
-                            <a href="@Url.Action("Index", "BudgetCategory")"><span><span>Categories</span></span></a></li>
+                            <a href="@Url.Action("Index", "BudgetCategory")"><span><span>Categories</span></span></a>
+                        </li>
                         <li class="omega" @((ViewContext.RouteData.GetRequiredString("controller") == "Home") && (ViewContext.RouteData.GetRequiredString("action") == "About") ? " id=menu_active" : "")>
-                            <a href="@Url.Action("About", "Home")"><span><span>About</span></span></a></li>
+                            <a href="@Url.Action("About", "Home")"><span><span>About</span></span></a>
+                        </li>
                     </ul>
                 </nav>
             </nav>
 
             @if (IsSectionDefined("Dashboard"))
             {
+
                 <div class="wrapper">
                     <div class="text">
                         @RenderSection("Dashboard")
@@ -50,6 +54,9 @@
                 </div> 
             }
         </header>
+
+        @if (!((ViewContext.RouteData.GetRequiredString("controller") == "Home") && (ViewContext.RouteData.GetRequiredString("action") == "Dashboard"))) {
+
         @RenderSection("featured", required: false)
         <section id="content">
             <div class="wrapper">
@@ -59,6 +66,8 @@
                             <article>
                                 @if (ViewContext.RouteData.GetRequiredString("controller") == "Budget")
                                 {
+
+
 
                                     <nav>
                                         <ul id="budget-menu">
@@ -73,12 +82,13 @@
                                 }
                                 @if (ViewContext.RouteData.GetRequiredString("controller") == "Household")
                                 {
+
                                     <nav>
                                         <ul id="budget-menu" class="submenu">
                                             <li class="alpha" @(ViewContext.RouteData.GetRequiredString("action") == "Index" ? "id=menu_active" : "")>
                                                 <a href="@Url.Action("Index", "Household")"><span><span>Approved</span></span></a></li>
-                                            <li @(ViewContext.RouteData.GetRequiredString("action") == "Requests" ? "id=menu_active" : "")>
-                                                <a href="@Url.Action("Requests", "Household")"><span><span>Approved</span></span></a></li>
+                                            <li class="omega" @(ViewContext.RouteData.GetRequiredString("action") == "Requests" ? "id=menu_active" : "")>
+                                                <a href="@Url.Action("Requests", "Household")"><span><span>Requests</span></span></a></li>
                                         </ul>
                                     </nav>
                                 }
@@ -89,6 +99,7 @@
                 </div>
             </div>
         </section>
+        }
     </div>
     <footer>
         <div class="content-wrapper">
@@ -96,6 +107,7 @@
         </div>
     </footer>
     </div>
+   
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/themejs")
     @RenderSection("scripts", required: false)

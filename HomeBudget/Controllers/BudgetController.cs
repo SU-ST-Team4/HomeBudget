@@ -37,7 +37,7 @@ namespace HomeBudget.Controllers
             ViewBag.hasHousehold = userIds.Count > 1;
             ViewBag.userId = userId;
 
-            return View(_budgetService.GetAllBudgetItems(bi => userIds.Contains(bi.UserProfile.UserId)));
+            return View(_budgetService.GetAllBudgetItemsApproved(bi => userIds.Contains(bi.UserProfile.UserId)));
         }
         //
         // GET: /Budget/Recurrent

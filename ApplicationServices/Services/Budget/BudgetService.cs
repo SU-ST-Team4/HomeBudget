@@ -103,6 +103,18 @@ namespace ApplicationServices.Services.Budget
         #region Budget Items
 
         /// <summary>
+        /// Get All budget items(except not approved recurrent) by filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public List<BudgetItem> GetAllBudgetItemsApproved(Expression<Func<BudgetItem, bool>> filter = null)
+        {
+            return _budgetItemRepository.Get(filter, c => c.OrderByDescending(i => i.Date))
+                                        .Where(bi => (bi.RecurrentBudget != null && bi.IsApproved == true) || bi.RecurrentBudget == null)
+                                        .ToList();
+        }
+
+        /// <summary>
         /// Get All recurrent budget items by filter.
         /// </summary>
         /// <param name="filter"></param>
@@ -110,7 +122,6 @@ namespace ApplicationServices.Services.Budget
         public List<BudgetItem> GetAllBudgetItems(Expression<Func<BudgetItem, bool>> filter = null)
         {
             return _budgetItemRepository.Get(filter, c => c.OrderByDescending(i => i.Date))
-                                        .Where(bi => (bi.RecurrentBudget != null && bi.IsApproved == true) || bi.RecurrentBudget == null)
                                         .ToList();
         }
         /// <summary>

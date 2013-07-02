@@ -17,7 +17,11 @@ namespace Core.Models.Budget
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
+        public int BudgetCategory_Id { get; set; }
+        [ForeignKey("BudgetCategory_Id")]
         public BudgetCategory BudgetCategory { get; set; }
         public decimal Amount { get; set; }
         [StringLength(300)]

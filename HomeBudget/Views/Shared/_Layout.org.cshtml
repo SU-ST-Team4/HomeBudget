@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("Home Budget", "Index", "Budget")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Dashboard", "Home")</li>
+                            <li>@Html.ActionLink("Budget", "Index", "Budget")</li>
+                            <li>@Html.ActionLink("Recurrent payments", "Index", "RecurrentBudget")</li>
+                            <li>@Html.ActionLink("Household", "Index", "Household")</li>
+                            <li>@Html.ActionLink("Categories", "Index", "BudgetCategory")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @if (ViewContext.RouteData.GetRequiredString("controller") == "Budget")
+                {
+                    <nav>
+                        <ul id="budget-menu" class="submenu">
+                            <li>@Html.ActionLink("All transactions", "Index", "Budget")</li>
+                            <li>@Html.ActionLink("Recurrent", "Recurrent", "Budget")</li>
+                            <li>@Html.ActionLink("Non recurrent", "NonRecurrent", "Budget")</li>
+                        </ul>
+                    </nav>
+                }
+                @if (ViewContext.RouteData.GetRequiredString("controller") == "Household")
+                {
+                    <nav>
+                        <ul id="budget-menu" class="submenu">
+                            <li>@Html.ActionLink("Approved", "Index", "Household")</li>
+                            <li>@Html.ActionLink("Requests", "Requests", "Household")</li>
+                        </ul>
+                    </nav>
+                }
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

@@ -16,7 +16,7 @@ namespace HomeBudget.Controllers
     {
         private readonly IBudgetService _budgetService;
         private readonly IUserProfileService _userProfileService;
-
+        
         public RecurrentBudgetController(IBudgetService budgetService, IUserProfileService userProfileService)
         {
             _budgetService = budgetService;
@@ -24,16 +24,16 @@ namespace HomeBudget.Controllers
         }
         //
         // GET: /RecurrentBudget/
-
+        [Authorize]
         public ActionResult Index()
         {
-            int userId = CurrentUser.Get().Id;
+            int userId = _userProfileService.GetUserProfileByName(HttpContext.User.Identity.Name).UserId;
             return View(_budgetService.GetAllRecurrentBudgets(i => i.UserProfile.UserId == userId));
         }
 
         //
         // GET: /RecurrentBudget/Details/5
-
+        [Authorize]
         public ActionResult Details(int id = 0)
         {
             RecurrentBudget recurrentbudget = _budgetService.GetAllRecurrentBudgets(i => i.Id == id).First();
@@ -46,12 +46,11 @@ namespace HomeBudget.Controllers
 
         //
         // GET: /RecurrentBudget/Create
-
+        [Authorize]
         public ActionResult Create()
         {
-            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
-                .Select(x => new { value = x.Id, text = x.Name }),
-                "value", "text");
+            ViewBag.Categories = _budgetService.GetAllBudgetCategories()
+                 .Select(x => new { value = x.Id, text = x.Name });
             return View();
         }
 
@@ -60,26 +59,26 @@ namespace HomeBudget.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(RecurrentBudget recurrentbudget)
         {
-            string userName = CurrentUser.Get().Name;
+            string userName = HttpContext.User.Identity.Name;
             recurrentbudget.UserProfile = _userProfileService.GetUserProfileByName(userName);
-            recurrentbudget.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2); ;
+            //recurrentbudget.BudgetCategory_Id = 1;
             if (ModelState.IsValid)
             {
                 _budgetService.InsertRecurrentBudget(recurrentbudget);
                 return RedirectToAction("Index");
             }
-            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
-                .Select(x => new { value = x.Id, text = x.Name }),
-                "value", "text");
+            ViewBag.Categories = _budgetService.GetAllBudgetCategories()
+                .Select(x => new { value = x.Id, text = x.Name });
 
             return View(recurrentbudget);
         }
 
         //
         // GET: /RecurrentBudget/Edit/5
-
+        [Authorize]
         public ActionResult Edit(int id = 0)
         {
             RecurrentBudget recurrentbudget = _budgetService.GetAllRecurrentBudgets(i => i.Id == id).First();
@@ -95,12 +94,12 @@ namespace HomeBudget.Controllers
 
         //
         // POST: /RecurrentBudget/Edit/5
-
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(RecurrentBudget recurrentbudget)
         {
-            string userName = CurrentUser.Get().Name;
+            string userName =   HttpContext.User.Identity.Name;
             recurrentbudget.UserProfile = _userProfileService.GetUserProfileByName(userName);
             recurrentbudget.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2);
             if (ModelState.IsValid)
@@ -116,7 +115,7 @@ namespace HomeBudget.Controllers
 
         //
         // GET: /RecurrentBudget/Delete/5
-
+        [Authorize]
         public ActionResult Delete(int id = 0)
         {
             RecurrentBudget recurrentbudget = _budgetService.GetAllRecurrentBudgets(i => i.Id == id).First();
@@ -133,6 +132,7 @@ namespace HomeBudget.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             return RedirectToAction("Index");
