@@ -1,21 +1,24 @@
 ﻿@model IEnumerable<Core.Models.Budget.BudgetCategory>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Categories";
 }
 
-<h2>Index</h2>
+<h2>Categories</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table>
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th></th>
     </tr>
+    </thead>
+
 
 @foreach (var item in Model) {
     <tr>
