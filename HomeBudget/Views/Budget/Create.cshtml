@@ -42,10 +42,7 @@
         </div>
 
         <div class="editor-label">
-            <label>Category</label>
-        </div>
-        <div class="editor-field">
-            @Html.Display("Category")
+            @Html.Label("Category")
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(model => model.BudgetCategory_Id, new SelectList(ViewBag.Categories, "value", "text"))

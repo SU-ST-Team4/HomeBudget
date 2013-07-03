@@ -116,8 +116,29 @@ namespace Infrastructure.Data
         /// <param name="entityToUpdate"></param>
         public virtual void Update(TEntity entityToUpdate)
         {
-            _dbSet.Attach(entityToUpdate);
-            _context.Entry(entityToUpdate).State = EntityState.Modified;
+            if (entityToUpdate == null)
+            {
+                throw new ArgumentException("Cannot add a null entity.");
+            }
+
+            var entry = _context.Entry<TEntity>(entityToUpdate);
+
+            if (entry.State == EntityState.Detached)
+            {
+                TEntity attachedEntity = _dbSet.Find(entityToUpdate.Id);  // You need to have access to key
+
+                if (attachedEntity != null)
+                {
+                    var attachedEntry = _context.Entry(attachedEntity);
+                    attachedEntry.CurrentValues.SetValues(entityToUpdate);
+                }
+                else
+                {
+                    entry.State = EntityState.Modified; // This should attach entity
+                }
+            }
+            /*_dbSet.Attach(entityToUpdate);
+            _context.Entry(entityToUpdate).State = EntityState.Modified;*/
         }
         /// <summary>
         /// Saves the changes that were done

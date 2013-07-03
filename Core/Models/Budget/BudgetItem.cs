@@ -19,7 +19,7 @@ namespace Core.Models.Budget
         public virtual UserProfile UserProfile { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         public int BudgetCategory_Id { get; set; }
         [ForeignKey("BudgetCategory_Id")]
         public BudgetCategory BudgetCategory { get; set; }

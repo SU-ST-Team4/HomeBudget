@@ -49,12 +49,12 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
         
-       <div class="editor-field">
-            @Html.Display("Category")
+       <div class="editor-label">
+            @Html.Label("Category")
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.BudgetCategory.Id, new SelectList(ViewBag.Categories, "value", "text"))
-            @Html.ValidationMessageFor(model => model.BudgetCategory.Id)
+            @Html.DropDownListFor(model => model.BudgetCategory_Id, new SelectList(ViewBag.Categories, "value", "text"))
+            @Html.ValidationMessageFor(model => model.BudgetCategory_Id)
         </div>
         <p>
             <input type="submit" value="Create" />

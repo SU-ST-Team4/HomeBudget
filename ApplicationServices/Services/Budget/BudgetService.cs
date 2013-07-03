@@ -197,14 +197,14 @@ namespace ApplicationServices.Services.Budget
         /// <param name="recurrentBudget"></param>
         public void InsertRecurrentBudget(RecurrentBudget recurrentBudget)
         {
-            if (recurrentBudget.StartDate.Day > 28)
+            if (recurrentBudget.StartDate.Value.Day > 28)
             {
-                recurrentBudget.StartDate = new DateTime(recurrentBudget.StartDate.Year, recurrentBudget.StartDate.Month, 28, 0, 0, 0);
+                recurrentBudget.StartDate = new DateTime(recurrentBudget.StartDate.Value.Year, recurrentBudget.StartDate.Value.Month, 28, 0, 0, 0);
             }
 
             _recurrentBudgetRepository.Insert(recurrentBudget);
 
-            DateTime date = recurrentBudget.StartDate;
+            DateTime? date = recurrentBudget.StartDate;
 
             for (int index = 0; index < recurrentBudget.Count; index++)
             {
@@ -212,14 +212,14 @@ namespace ApplicationServices.Services.Budget
                 _budgetItemRepository.Insert(new BudgetItem()
                                             {
                                                 Amount = recurrentBudget.Amount,
-                                                BudgetCategory = recurrentBudget.BudgetCategory,
+                                                BudgetCategory_Id = recurrentBudget.BudgetCategory_Id,
                                                 Date = date,
                                                 Description = recurrentBudget.Description,
                                                 IsApproved = false,
                                                 RecurrentBudget = recurrentBudget,
                                                 UserProfile = recurrentBudget.UserProfile
                                             });
-                date = date.AddMonths(1);
+                date = date.Value.AddMonths(1);
             }
             _budgetItemRepository.SaveChanges();
         }
@@ -230,6 +230,7 @@ namespace ApplicationServices.Services.Budget
         public void UpdateRecurrentBudget(RecurrentBudget recurrentBudget)
         {
             _recurrentBudgetRepository.Update(recurrentBudget);
+            _recurrentBudgetRepository.SaveChanges();
             List<BudgetItem> budgetItems = GetAllRecurrentBudgetItems(i => i.RecurrentBudget.Id == recurrentBudget.Id);
 
             foreach (BudgetItem budgetItem in budgetItems)
@@ -238,12 +239,12 @@ namespace ApplicationServices.Services.Budget
                 {
                     budgetItem.Amount = recurrentBudget.Amount;
                     budgetItem.Description = recurrentBudget.Description;
+                    budgetItem.BudgetCategory_Id = recurrentBudget.BudgetCategory_Id;
                     _budgetItemRepository.Update(budgetItem);
+                    
                 }
             }
-
             _budgetItemRepository.SaveChanges();
-            _recurrentBudgetRepository.SaveChanges();
         }
         /// <summary>
         /// Approve budget item which is part from recurrent budget.

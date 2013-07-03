@@ -86,9 +86,8 @@ namespace HomeBudget.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
-               .Select(x => new { value = x.Id, text = x.Name }),
-               "value", "text", recurrentbudget.BudgetCategory.Id);
+            ViewBag.Categories = _budgetService.GetAllBudgetCategories()
+               .Select(x => new { value = x.Id, text = x.Name });
             return View(recurrentbudget);
         }
 
@@ -101,15 +100,13 @@ namespace HomeBudget.Controllers
         {
             string userName =   HttpContext.User.Identity.Name;
             recurrentbudget.UserProfile = _userProfileService.GetUserProfileByName(userName);
-            recurrentbudget.BudgetCategory = _budgetService.GetAllBudgetCategories().First(c => c.Id == 2);
             if (ModelState.IsValid)
             {
                 _budgetService.UpdateRecurrentBudget(recurrentbudget);
                 return RedirectToAction("Index");
             }
-            ViewBag.BudgetCategory_Id = new SelectList(_budgetService.GetAllBudgetCategories()
-               .Select(x => new { value = x.Id, text = x.Name }),
-               "value", "text", recurrentbudget.BudgetCategory.Id);
+            ViewBag.Categories = _budgetService.GetAllBudgetCategories()
+               .Select(x => new { value = x.Id, text = x.Name });
             return View(recurrentbudget);
         }
 
