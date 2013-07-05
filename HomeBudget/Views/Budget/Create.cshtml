@@ -62,16 +62,23 @@
     @Scripts.Render("~/bundles/jqueryval", "~/Scripts/jquery-ui-1.8.20.min.js")
     @Styles.Render("~/Content/themes/base/jquery.ui.core.css", "~/Content/themes/base/jquery.ui.datepicker.css", "~/Content/themes/base/jquery.ui.theme.css")
     <script type="text/javascript">
+        function makeExpense() {
+            var hasComma = $("#Amount").val().indexOf(',') != -1;
+            var amount = $("#Amount").val().replace(',', '.');
+            if ($("#etype_1").is(":checked") && amount > 0) {
+                amount *= -1;
+                if (hasComma) {
+                    amount = ('' + amount).replace('.', ',');
+                }
+                $("#Amount").val(amount);
+            }
+        }
         $(document).ready(function () {
             $("#datepicker").datepicker({
                 altField: "#Date",
                 altFormat: "yy-mm-dd 00:00:00"
             }).val($('#Date').val());
-            $("form").submit(function () {
-                if ($("#etype_1").is(":checked") && $("#Amount").val() > 0) {
-                    $("#Amount").val($("#Amount").val() * -1);
-                }
-            });
+            $("form").submit(makeExpense);
         });
     </script>
 }

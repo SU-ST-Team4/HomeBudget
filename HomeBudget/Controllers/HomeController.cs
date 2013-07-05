@@ -34,9 +34,33 @@ namespace HomeBudget.Controllers
             List<int> userIds = _houseHoldService.GetAllHouseHoldMembersByUserId(userId).Select(u => u.UserId).ToList();
             userIds.Add(userId);
 
-            ViewBag.current = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 1);
-            ViewBag.previous = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 2);
-            ViewBag.bprevious = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 3);
+            var current = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 1);
+            var previous = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 2);
+            var bprevious = _budgetService.GetLastNMonthBudgetPreviewByUserIds(userIds, 3);
+
+            decimal cost = current.Cost;
+            decimal balance = current.Balance;
+            decimal income = cost + balance;
+            ViewBag.currentIncome = income;
+            ViewBag.currentCost = cost;
+            ViewBag.currentBalance = balance;
+            
+            cost = previous.Cost - cost;
+            balance = previous.Balance - balance;
+            income = cost + balance;
+            ViewBag.previousIncome = income;
+            ViewBag.previousCost = cost;
+            ViewBag.previousBalance = balance;
+
+            cost = bprevious.Cost - cost;
+            balance = bprevious.Balance - balance;
+            income = cost + balance;
+            ViewBag.bpreviousIncome = income;
+            ViewBag.bpreviousCost = cost;
+            ViewBag.bpreviousBalance = balance;
+
+
+
             return View();
         }
 

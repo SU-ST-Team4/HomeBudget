@@ -15,32 +15,19 @@
     </thead>
     <tbody>
         <tr><td>Current</td>
-           <td> @{
-                    var income = ViewBag.current.Cost + ViewBag.current.Balance;
-                }
-                @income
-            </td>
-            <td>@ViewBag.current.Cost</td><td>@ViewBag.current.Balance</td>
+           <td>@ViewBag.currentIncome</td>
+           <td>@ViewBag.currentCost</td>
+           <td>@ViewBag.currentBalance</td>
         </tr>
         <tr><td>Previous</td>
-           <td> @{
-                    var cost = ViewBag.previous.Cost - ViewBag.current.Cost;
-                    var balance = ViewBag.previous.Balance - ViewBag.current.Balance;
-                    income = ViewBag.previous.Cost + ViewBag.previous.Balance;
-                }
-                @income
-            </td>
-            <td>@cost</td><td>@balance</td>
+           <td>@ViewBag.previousIncome</td>
+           <td>@ViewBag.previousCost</td>
+           <td>@ViewBag.previousBalance</td>
         </tr>
         <tr><td>Two months ago</td>
-           <td> @{
-                    cost = ViewBag.bprevious.Cost - cost;
-                    balance = ViewBag.bprevious.Balance - balance;
-                    income = cost + balance;
-                }
-                @income
-            </td>
-            <td>@cost</td><td>@balance</td>
+           <td>@ViewBag.bpreviousIncome</td>
+           <td>@ViewBag.bpreviousCost</td>
+           <td>@ViewBag.bpreviousBalance</td>
         </tr>
     </tbody>
 </table>
